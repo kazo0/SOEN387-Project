@@ -32,8 +32,10 @@
 	   				<td><label><%= Items[i].getPrice()%></label></td>
 	   				<td><label><%= Items[i].getQty()%></label></td>
 	   				<td><label><%= Items[i].getStatus()%></label></td>
+   				 <% if (Items[i].getID() != -1) {  %>
 	   				<td><a href="GameEditController?id=<%= Items[i].getID()%>">Edit</a></td>
 	   				<td><a href="GameController?option=delete&id=<%= Items[i].getID()%>">Delete</a></td>
+				<% } %>
 				</tr>
 				<% } %>
 		</table>

@@ -33,11 +33,11 @@
 				<tr>
 					<td><label>Category :</label></td>
 					<td>
-						<select>
+						<select name="Category">
 							<% String[] cat = new Categories().Categories;%>
 							<% for(int i = 0; i < cat.length; i+=1) { %>
-								<% String selected = gm.getCategory().equals(cat[i])? "selected" : "false"; %>
-								<option value="<%= cat[i] %>" selected="<%= selected %>"><%= cat[i]%></option>
+								<% String selected = gm.getCategory().equals(cat[i])? "selected" : ""; %>
+								<option value="<%= cat[i] %>" <%= selected %> ><%= cat[i]%></option>
 	   				 		<% } %>
 						</select>
 					</td>

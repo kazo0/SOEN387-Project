@@ -98,5 +98,4 @@ public class UOW {
 		return this.newObjects;
 	}
 
-
 }

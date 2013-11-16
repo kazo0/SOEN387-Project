@@ -28,7 +28,7 @@
 			<tr>
 				<td><label>Category :</label></td>
 				<td>
-					<select>
+					<select name="Category">
 						<% String[] cat = new Categories().Categories;%>
 						<% for(int i = 0; i < cat.length; i+=1) { %>
 							<option value="<%= cat[i] %>"><%= cat[i]%></option>

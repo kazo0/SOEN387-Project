@@ -98,8 +98,8 @@ public class GameMapper {
 	public void insert (DomainObject obj) {
 		Game gm = (Game) obj;
 		//DB Insert 
-		String values = "'" + gm.getName() + "','" + gm.getPrice() + "','" + gm.getDescription() + "','" + gm.getQty() + "'";
-		String query = "INSERT INTO Games (name,price,description,quantity) VALUES (" + values + ")";
+		String values = "'" + gm.getName() + "','" + gm.getPrice() + "','" + gm.getDescription() + "','" + gm.getQty() + "','" + gm.getCategory() + "'";
+		String query = "INSERT INTO Games (name,price,description,quantity,category) VALUES (" + values + ")";
 		int  id = DBAccess.getInstance().ExecuteInsert(query);
 		// Set id from DB
 		gm.setID(id);
@@ -108,7 +108,7 @@ public class GameMapper {
 	
 	public void update(DomainObject obj) {
 		Game gm = (Game) obj;
-		String query = "UPDATE Games SET name='" + gm.getName() + "',price='" + gm.getPrice() + "',description='" + gm.getDescription() + "', quantity='" + gm.getQty() +  "' WHERE id=" + gm.getID();
+		String query = "UPDATE Games SET name='" + gm.getName() + "',price='" + gm.getPrice() + "',description='" + gm.getDescription() + "', quantity='" + gm.getQty() + "', category='" + gm.getCategory()  + "' WHERE id=" + gm.getID();
 		DBAccess.getInstance().Execute(query);
 	}
 	public void delete(int key) {

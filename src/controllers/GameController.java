@@ -44,8 +44,6 @@ public class GameController extends HttpServlet {
 		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
 		RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
 		rd1.forward(request, response);
-		
-		
 	
 	}
 
@@ -63,13 +61,15 @@ public class GameController extends HttpServlet {
 			String desc = request.getParameter("Description");
 			double price = Double.parseDouble(request.getParameter("Price"));
 			int qty = Integer.parseInt(request.getParameter("Quantity"));
-
+			String[] cat = request.getParameterValues("Category");
 			Game gm =GameMapper.getInstance().get(id);
 			gm.setName(name);
 			gm.setDescription(desc);
 			gm.setPrice(price);
 			gm.setQty(qty);
+			gm.setCategory(cat[0]);
 			gm.markDirty();
+			
 	
 			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
 			RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
@@ -82,11 +82,10 @@ public class GameController extends HttpServlet {
 			String desc = request.getParameter("Description");
 			double price = Double.parseDouble(request.getParameter("Price"));
 			int qty = Integer.parseInt(request.getParameter("Quantity"));
-			// TODO 
-			String cat = "Xbox 360";
+			String[] cat = request.getParameterValues("Category");
 
 			
-			Game gm = new Game(-1, name, desc, price, qty, cat);
+			Game gm = new Game(-1, name, desc, price, qty, cat[0]);
 			gm.markNew();
 			
 			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
