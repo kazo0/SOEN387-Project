@@ -47,8 +47,9 @@ public class GameMapper {
 					String desc = rs.getString("description");
 					int qty = rs.getInt("quantity");
 					String cat = rs.getString("category");
+					String image = rs.getString("image");
 
-					gm = new Game(id,name,desc,price,qty,cat);
+					gm = new Game(id,name,desc,price,qty,cat, image);
 				}
 				list.add(gm);
 			}
@@ -83,8 +84,9 @@ public class GameMapper {
 				String desc = rs.getString("description");
 				int qty = rs.getInt("quantity");
 				String cat = rs.getString("category");
-
-				gm = new Game(id,name,desc,price,qty, cat);
+				String image = rs.getString("image");
+				
+				gm = new Game(id,name,desc,price,qty, cat, image);
 				this.addGameToMap(gm);
 				}
 			catch (Exception ex) {
@@ -98,8 +100,8 @@ public class GameMapper {
 	public void insert (DomainObject obj) {
 		Game gm = (Game) obj;
 		//DB Insert 
-		String values = "'" + gm.getName() + "','" + gm.getPrice() + "','" + gm.getDescription() + "','" + gm.getQty() + "','" + gm.getCategory() + "'";
-		String query = "INSERT INTO Games (name,price,description,quantity,category) VALUES (" + values + ")";
+		String values = "'" + gm.getName() + "','" + gm.getPrice() + "','" + gm.getDescription() + "','" + gm.getQty() + "','" + gm.getCategory() + "','" + gm.getImage() + "'";
+		String query = "INSERT INTO Games (name,price,description,quantity,category, image) VALUES (" + values + ")";
 		int  id = DBAccess.getInstance().ExecuteInsert(query);
 		// Set id from DB
 		gm.setID(id);
@@ -108,7 +110,7 @@ public class GameMapper {
 	
 	public void update(DomainObject obj) {
 		Game gm = (Game) obj;
-		String query = "UPDATE Games SET name='" + gm.getName() + "',price='" + gm.getPrice() + "',description='" + gm.getDescription() + "', quantity='" + gm.getQty() + "', category='" + gm.getCategory()  + "' WHERE id=" + gm.getID();
+		String query = "UPDATE Games SET name='" + gm.getName() + "',price='" + gm.getPrice() + "',description='" + gm.getDescription() + "', quantity='" + gm.getQty() + "', category='" + gm.getCategory()  + "', image='" + gm.getImage()  + "' WHERE id=" + gm.getID();
 		DBAccess.getInstance().Execute(query);
 	}
 	public void delete(int key) {

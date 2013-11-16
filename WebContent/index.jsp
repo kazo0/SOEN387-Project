@@ -9,7 +9,7 @@
 <title>Assignment 2</title>
 </head>
 <body>
-	<form action="InventoryController">
+	<form action="HomeController">
 		<input type="submit" value ="Connect" />
 	</form>
 </body>

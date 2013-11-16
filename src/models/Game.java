@@ -18,14 +18,16 @@ public class Game extends DomainObject {
 	private double Price;
 	private int Qty;
 	private String Category;
+	private String Image;
 
-	public Game (int id, String name, String desc, double price, int qty, String cat ){
+	public Game (int id, String name, String desc, double price, int qty, String cat, String image){
 		super(id, DBStatus.CLEAN);
 		Name = name;
 		Description = desc;
 		Price = price;
 		Qty = qty;
 		Category = cat;
+		Image = image;
 	}
 
 	public String getName() {
@@ -66,6 +68,14 @@ public class Game extends DomainObject {
 
 	public void setCategory(String category) {
 		Category = category;
+	}
+	
+	public String getImage() {
+		return Image;
+	}
+
+	public void setImage(String image) {
+		Image = image;
 	}
 	
 

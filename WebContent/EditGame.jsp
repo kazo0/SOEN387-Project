@@ -31,6 +31,10 @@
 					<td><input name="Quantity" type="text" value="<%= gm.getQty() %>" /> </td>
 				</tr>
 				<tr>
+					<td><label>Image :</label></td>
+					<td><input name="Image" type="text" value="<%= gm.getImage() %>" /> </td>
+				</tr>
+				<tr>
 					<td><label>Category :</label></td>
 					<td>
 						<select name="Category">

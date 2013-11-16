@@ -26,6 +26,10 @@
 				<td><input name="Quantity" type="text" /> </td>
 			</tr>
 			<tr>
+				<td><label>Image :</label></td>
+				<td><input name="Image" type="text" /> </td>
+			</tr>
+			<tr>
 				<td><label>Category :</label></td>
 				<td>
 					<select name="Category">
