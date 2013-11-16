@@ -18,14 +18,14 @@ import models.*;
 /**
  * Servlet implementation class Test
  */
-@WebServlet("/HomeController")
-public class HomeController extends HttpServlet {
+@WebServlet("/InventoryController")
+public class InventoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeController() {
+    public InventoryController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,15 +39,9 @@ public class HomeController extends HttpServlet {
 		
 		DBAccess.getInstance();
 		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
-		RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
+		RequestDispatcher rd1=request.getRequestDispatcher("Inventory.jsp");
 		rd1.forward(request, response);
-		//Game gm = GameMapper.getInstance().get(1);
-		//unit.registerClean(gm);
 		
-		//ChangeName(gm, "Hello world!!");
-		//Game newGame = new Game(0, "Title", "Desc" , 15.4 , 24);
-		//AddGame(newGame);
-		//Commit();
 		
 	}
 
