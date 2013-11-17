@@ -31,7 +31,7 @@ public class Cart {
 		games.get(index).setQuantity(quantity);
 	}
 	
-	public void addItem(int gameID, double price)
+	public void addItem(int gameID, double price, String name)
 	{
 		for (OrderItem oi : games)
 		{
@@ -41,7 +41,7 @@ public class Cart {
 				return;
 			}
 		}
-		games.add(new OrderItem(gameID, 1, price));
+		games.add(new OrderItem(gameID, 1, price, name));
 	}
 	
 	public double getTotal()
@@ -54,9 +54,9 @@ public class Cart {
 		return total;
 	}
 	
-	public List<OrderItem> getItems()
+	public OrderItem[] getItems()
 	{
-		return games;
+		return (OrderItem[]) games.toArray();
 	}
 
 }
