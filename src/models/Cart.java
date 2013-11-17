@@ -33,6 +33,14 @@ public class Cart {
 	
 	public void addItem(int gameID, double price)
 	{
+		for (OrderItem oi : games)
+		{
+			if (oi.getGameID() == gameID)
+			{
+				oi.setQuantity(oi.getQuantity() + 1);
+				return;
+			}
+		}
 		games.add(new OrderItem(gameID, 1, price));
 	}
 	
@@ -44,6 +52,11 @@ public class Cart {
 			total += oi.getPrice() * oi.getQuantity();
 		}
 		return total;
+	}
+	
+	public List<OrderItem> getItems()
+	{
+		return games;
 	}
 
 }
