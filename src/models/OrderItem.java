@@ -5,13 +5,15 @@ public class OrderItem {
 	private int gameID;
 	private int quantity;
 	private double price;
+	private String name;
 	
 	
-	public OrderItem(int gameID, int quantity, double price) {
+	public OrderItem(int gameID, int quantity, double price, String name) {
 		super();
 		this.gameID = gameID;
 		this.quantity = quantity;
 		this.price = price;
+		this.name = name;
 	}
 	
 	public int getGameID() {
@@ -31,6 +33,12 @@ public class OrderItem {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
