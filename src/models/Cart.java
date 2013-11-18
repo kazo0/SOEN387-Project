@@ -18,7 +18,7 @@ public class Cart {
 	
 	public void deleteItem(int index)
 	{
-		games.remove(index - 1);
+		games.remove(index);
 	}
 	
 	public void updateItem(int index, int quantity)
@@ -56,7 +56,7 @@ public class Cart {
 	
 	public OrderItem[] getItems()
 	{
-		return (OrderItem[]) games.toArray();
+		return games.toArray(new OrderItem[games.size()]);
 	}
 
 }

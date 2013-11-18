@@ -4,10 +4,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Store Cart</title>
+<style>
+ .button {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+   }
+</style>
 </head>
 <body>
-<form action="CheckoutController" method="post">
+<form action="CartController" method="post">
 		<h1>Cart</h1>
 		<table>
 			<tr>
@@ -19,20 +32,23 @@
 			
 				<%
 				Cart cart = (Cart) request.getSession().getAttribute("cart");
-				OrderItem[] Items = cart.getItems();
-				for (int i = 0; i < Items.length; i++) {
-				%>
-				<tr>
-	   				<td><label><%= Items[i].getPrice()%></label></td>
-	   				<td><label><%= Items[i].getPrice()%></label></td>
-	   				<td><input type="text" name="quantity[]" value="<%= Items[i].getQuantity()%>" /></td>
-	   				<td><a href="CartController?option=delete&index=<%= i%>">Delete</a></td>
-				</tr>
-				<% } %>
+				if (cart != null) {
+					OrderItem[] Items = cart.getItems();
+					for (int i = 0; i < Items.length; i++) {
+					%>
+					<tr>
+		   				<td><label><%= Items[i].getName()%></label></td>
+		   				<td><label><%= Items[i].getPrice()%></label></td>
+		   				<td><input type="text" name="Quantity[]" value="<%= Items[i].getQuantity()%>" /></td>
+		   				<td><a href="CartController?option=delete&index=<%= i%>">Delete</a></td>
+					</tr>
+					<% }} %>
+					
 		</table>
-		<input type="submit" value ="Update Cart" />
-		<input type="submit" value ="Checkout" />
-		
+		<p><%= cart.getItemCount() + " " %> Item(S) in the Cart</p>
+		<p><label>Total : </label><%= cart.getTotal() %></p>
+		<input type="submit" name="update" value ="Update Cart" />
+		<input type="submit" name="checkout" value ="Checkout" />
 	</form>
 </body>
 </html>

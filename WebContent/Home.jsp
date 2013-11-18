@@ -45,7 +45,7 @@ ul.products {
          <p>$<%= Items[i].getCategory() %></p>
          <p>$<%= Items[i].getPrice() %></p>
          <p><%= Items[i].getQty() %> Available</p>
-         <p><a href="#" class="button">Add to Cart</a></p>
+         <p><a href="CartController?option=add&gameID=<%= Items[i].getID() %>&price=<%= Items[i].getPrice() %>&name=<%= Items[i].getName() %>" class="button">Add to Cart</a></p>
     </li>
     <% } %>
 </ul>
