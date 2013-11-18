@@ -32,10 +32,11 @@ public class GameMapper {
 		soleInstance.game.put(arg.getID(), arg);
 	}
 	
-	public Game[] getAll() {
+	public Game[] getAll(String category) {
 		
 		List<Game> list = new ArrayList<Game>();
-		String query = "select * from Games";
+		
+		String query = category == null? "select * from Games" : "select * from Games where category='"+ category + "'";
 		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
 		try {
 			while(rs.next()) {

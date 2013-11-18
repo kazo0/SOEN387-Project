@@ -6,11 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Assignment 2</title>
+<title>SOen 387 Project</title>
 </head>
 <body>
 	<form action="HomeController">
-		<input type="submit" value ="Connect" />
+		<h1>Online Store Login</h1>
+		<p><label>Username</label><input type="text" /></p>
+		<p><label>Password</label><input type="text" /></p>
+		<input type="submit" value ="Login" />
 	</form>
 </body>
 </html>

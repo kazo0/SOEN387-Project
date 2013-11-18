@@ -33,7 +33,9 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DBAccess.getInstance();
-		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
+		String category = request.getParameter("category");
+
+		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll(category));
 		RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
 		rd1.forward(request, response);
 	}

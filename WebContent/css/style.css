@@ -1,0 +1,222 @@
+
+
+/*** GLOBAL  ***/
+html,body{height:100%}
+body {
+	font-family:Verdana, Arial, Tahoma;
+	font-size:11px;
+	margin:0 auto;
+	padding:0;
+	color:#707070;
+	height:100%;
+	line-height:18px;
+}
+* {
+	margin:0;
+	padding:0;
+}
+*:focus {
+	outline:none; /* removes ugly dotted border but may make template more unsuable, up to you
+					 if you want to keep it! */
+}
+.clr{clear:both;}
+form{margin:0; padding:0;}
+hr {
+	border: 0;
+	color: #dedede;
+	background-color: #dedede;
+	height: 1px;
+	margin:0px 0px 6px 0px;
+	padding:0px;
+}
+/*** END OF GLOBAL  ***/
+
+/*** DEFAULT ELEMENT STYLES ***/
+/* heading */
+h1, h2, h3, h4, h5 {margin-bottom:15px;font-weight:normal; color:#336699; font-family:Tahoma, Verdana}
+h1 {font-size:24px; line-height:16px}
+h2 {font-size:22px; line-height:24px;}
+h3 {font-size:16px; line-height:18px; font-weight:bold;}
+h4 {font-size:14px; line-height:16px; }
+h5 {font-size:12px; line-height:14px;}
+
+/* links */
+a {color:#336699;text-decoration:underline;}
+a:hover{color:#9db9c2;}
+a img{border:none}
+
+/* lists, blockquotes and paragraphs */
+p, ul, ol, blockquote {
+	font-size:11px;
+	line-height:18px;
+	margin-bottom:20px;
+	color:#707070;
+}
+ul, ol {
+	margin:10px 0 35px 40px;
+}
+li ol,
+li ul
+{
+	font-size:1.0em;
+	list-style:square;
+	margin-bottom:0;
+	margin-top:0;
+}
+li ol {list-style:decimal;}
+blockquote {
+	font-style:italic;
+	margin:25px 0 25px 0px;
+	color:#707070;
+	padding:10px 20px 10px 35px;
+	background-image:url(../images/quote.png);
+	background-repeat:no-repeat;
+	width:80%;
+}
+
+/* code */
+code {
+	font-family:Verdana, Arial;
+	letter-spacing:1px;
+	margin:25px 0 25px 0px;
+	display:block;
+	font-size:0.9em;
+	border-left:4px solid #336699;
+	padding:15px 10px;
+}
+/*** END OF DEFAULT ELEMENT STYLES ***/
+
+/*** CONTAINER ***/
+#container{background-image:url(../images/bg_maincontainer.gif); background-repeat:repeat-x; background-color:#fff; min-height:90%; height:auto; }
+#bottom_container{background-image:url(../images/bg_bottomcontainer.gif); background-repeat:repeat-x; height:99px;}
+/*** END OF CONTAINER ***/
+
+/*** CENTERCOLUMN ***/
+#centercolumn{margin:0 auto; width:962px;}
+/*** END OF CENTERCOLUMN ***/
+
+/*** HEADER ***/
+/* top */
+#top{height:60px;}
+#logo{width:300px; float:left;}
+#topmenu{width:410px; float:left;}
+#topmenu ul{list-style-type:none; margin:0px; padding:25px 0px 0px 0px;}
+#topmenu  ul li{display:inline; background-image:url(../images/lineborder_topmenu.gif); background-position:left bottom; background-repeat:no-repeat;}
+#topmenu  ul li.noborder{background-image:none;}
+#topmenu ul li a, #topmenu ul li a:visited{color:#707070; font-family:Tahoma, Verdana; font-size:11px; text-decoration:none;padding:0px 10px;}
+#topmenu ul li a:hover{color:#939292;}
+/* topsearch*/
+#topsearch{width:252px; float:left; padding:19px 0px 0px 0px ;}
+#topsearch p{margin:0px;}
+.bg_input{background-image:url(../images/bg_inputbox.gif); background-repeat:no-repeat; width:232px; height:26px; display:block;}
+.inputbox{background:transparent; border:0px; width:198px; padding:5px 0px 5px 4px; line-height:normal; margin-left:1px; }
+/* slider */
+#slides_container{height:252px; background-image:url(../images/bg_header.jpg); background-repeat:no-repeat;}
+#introText{float:left; width:490px; padding:40px 45px 30px 30px;}
+#introText h1{color:#000;}
+#introText p{color:#707070;}
+#content_slider{ width:397px; float:left; padding:17px 0px 0px 0px; position:relative;}
+/* Easy Slider */
+#slider{margin:0px auto; width:386px; padding:0px 0px 0px 0px;}	
+#slider ul, #slider li{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#slider li{ 
+	/* 
+		define width and height of list item (slide)
+		entire slider area will adjust according to the parameters provided here
+	*/ 
+	width:386px;
+	height:241px;
+	overflow:hidden;
+	margin:0px;
+	padding:0px;
+}
+#prevBtn, #nextBtn{ 
+	display:block;
+	width:22px;
+	height:72px;
+	position:absolute;
+	top:85px;
+}
+* html #prevBtn,  * html #nextBtn{top:90px;}
+#prevBtn{
+	left:10px;
+}	
+#nextBtn{ 
+	left:363px;
+}														
+#prevBtn a, #nextBtn a{  
+	display:block;
+	width:22px;
+	height:72px;
+	background:url(../images/slide-prev.png) no-repeat 0 0;
+	cursor:pointer;
+}
+#nextBtn a{ 
+	background:url(../images/slide-next.png) no-repeat 0 0;	
+}
+/* menu */
+#menu{background-image:url(../images/bg_mainmenu.gif); background-repeat:no-repeat; height:46px; margin-top:14px;}
+#mainmenu{float:left; width:748px;}
+#mainmenu ul{list-style-type:none; margin:0px; padding:0px;}
+#mainmenu ul li{display:inline;}
+#mainmenu ul li a, #mainmenu ul li a:visited{color:#000; font-family:Tahoma, Verdana; font-size:14px; text-decoration:none; padding:0px 20px; line-height:40px}
+#mainmenu ul li a:hover{color:#666565;}
+#mainmenu ul li a.active{color:#666565;}
+#topcart{float:left; width:184px; text-align:right; color:#000;  padding:5px 25px 0px 0px}
+#topcart img{vertical-align:middle; padding-right:0px;}
+/*** END OF HEADER ***/
+
+/*** CONTENT ***/
+#content{padding:17px 0px 0px 0px;}
+.imgleft{float:left; padding-right:15px;}
+.imgright{float:right; padding-left:15px;}
+#content_left{width:725px; float:left;}
+#maincontent{}
+
+/* mainbox */
+.mainbox{ background-image:url(../images/c_main_linebottom.gif); background-repeat:repeat-x; background-position:bottom; width:725px}
+.mainbox_linetop{ background-image:url(../images/c_main_linetop.gif); background-repeat:repeat-x; background-position:top;}
+.mainbox_lineleft{ background-image:url(../images/c_main_lineleft.gif); background-repeat:repeat-y; background-position:left;}
+.mainbox_lineright{ background-image:url(../images/c_main_lineright.gif); background-repeat:repeat-y; background-position:right;}
+.maincurve_tl{background-image:url(../images/c_main_tl.gif); background-position:left top; background-repeat:no-repeat;}
+.maincurve_tr{background-image:url(../images/c_main_tr.gif); background-position:right top; background-repeat:no-repeat;}
+.maincurve_bl{background-image:url(../images/c_main_bl.gif); background-position:bottom left; background-repeat:no-repeat; width:725px}
+.maincurve_br{background-image:url(../images/c_main_br.gif); background-position:bottom right; background-repeat:no-repeat;  width:725px}
+.padbox{padding:15px 15px 15px 15px;}
+.padbox_small{padding:10px 18px 10px 18px;}
+
+/* product */
+.product{ width:306px; padding:8px 0px 0px 20px;  float:left;}
+.product.borderright{border-right:dotted 2px #ededed; padding:8px 20px 0px 0px; margin-left:20px}
+.product.borderbottom{border-bottom:dotted 2px #ededed;}
+.title_product{font-size:16px; line-height:25px; font-weight:bold; text-align:left; color:#336699; border-bottom:solid 1px #dedede;}
+.price_small{font-size:16px; color:#336699; font-weight:bold;}
+
+/* sidebox */
+#content_right{width:219px; float:left; padding-left:18px; font-family:Tahoma;}
+.sidebox{margin-bottom:18px; width:217px; }
+.sidebox_repeat{background-image:url(../images/bg_sidebox_m.gif); background-repeat:repeat-y;}
+.sidebox_t{background-image:url(../images/bg_sidebox_t.gif); background-repeat:no-repeat;}
+.sidebox_b{background-image:url(../images/bg_sidebox_b.gif); background-repeat:no-repeat; background-position:bottom left; }
+.padbox_side{padding:8px 18px 20px 20px;}
+.sidebox h3{color:#fff; padding:2px 0px 0px 20px; font-family:Tahoma;}
+.sidebox ul{list-style-type:none; padding:0px; margin:0px;}
+.sidebox ul li{background-image:url(../images/arrow.gif); background-repeat:no-repeat; background-position:left; border-bottom:solid 1px #dedede; padding:0px 0px 0px 20px; font-size:12px;}
+.sidebox ul li a, .sidebox ul li a:visited{color:#707070; text-decoration:none; line-height:30px;}
+.sidebox ul li a:hover{color:#979696;}
+.price{color:#336699; font-size:24px; font-family:Tahoma;}
+.but{vertical-align:middle;}
+/*** END OF CONTENT ***/
+
+
+/*** FOOTER ***/
+#footer{width:962px; margin:0 auto; color:#464646;}
+#footer a, #footer a:visited{ color:#464646; text-decoration:none;}
+#footleft{width:400px; float:left;  padding:26px 0px 0px 0px; line-height:20px;}
+#footright{width:562px; float:left; padding:11px 0px 0px 0px}
+#twitter{ background-image:url(../images/bg_twitter.gif); background-repeat:no-repeat; background-position:right; height:78px; overflow:hidden; }
+#twitter_text{width:387px; padding:8px 0px 0px 35px; height:57px; line-height:17px;overflow:hidden}

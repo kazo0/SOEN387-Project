@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.Cart;
 import models.Game;
+import models.Order;
+import models.User;
 import patterns.GameMapper;
 
 /**
@@ -64,6 +66,8 @@ public class CartController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		User user = (User) request.getSession().getAttribute("user");
+
 		if (cart == null) 
 			return;
 		
@@ -80,6 +84,8 @@ public class CartController extends HttpServlet {
 			rd1.forward(request, response);
 		}
 		 else if (request.getParameter("checkout") != null) {
+			 
+			 Order order = new Order(-1, cart.getOrderItems(), user);
 			 RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
 				rd1.forward(request, response);
 		 }

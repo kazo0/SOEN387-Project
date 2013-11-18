@@ -63,5 +63,10 @@ public class Cart {
 	{
 		return games.toArray(new OrderItem[games.size()]);
 	}
+	
+	public List<OrderItem> getOrderItems()
+	{
+		return games;
+	}
 
 }
