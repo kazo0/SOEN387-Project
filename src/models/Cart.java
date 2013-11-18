@@ -18,11 +18,14 @@ public class Cart {
 	
 	public void deleteItem(int index)
 	{
+		// Manage unLock Item in DB
 		games.remove(index);
 	}
 	
 	public void updateItem(int index, int quantity)
 	{
+		
+		// Manage Lock Item in DB
 		if (quantity == 0)
 		{
 			deleteItem(index);
@@ -33,6 +36,8 @@ public class Cart {
 	
 	public void addItem(int gameID, double price, String name)
 	{
+		
+		// Manage Lock Item in DB
 		for (OrderItem oi : games)
 		{
 			if (oi.getGameID() == gameID)

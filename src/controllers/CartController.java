@@ -47,6 +47,7 @@ public class CartController extends HttpServlet {
 			request.getSession(true).setAttribute("cart", cart);
 			RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
 			rd1.forward(request, response);
+			
 		}
 		if (opt.equals("delete")) {
 			int index = Integer.parseInt(request.getParameter("index"));
