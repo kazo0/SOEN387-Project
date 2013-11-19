@@ -32,11 +32,11 @@ public class GameMapper {
 		soleInstance.game.put(arg.getID(), arg);
 	}
 	
-	public Game[] getAll(String category) {
+	public Game[] getAll() {
 		
 		List<Game> list = new ArrayList<Game>();
 		
-		String query = category == null? "select * from Games" : "select * from Games where category='"+ category + "'";
+		String query = "select * from Games";
 		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
 		try {
 			while(rs.next()) {
@@ -66,6 +66,57 @@ public class GameMapper {
 		}
 		return list.toArray(new Game[list.size()]);
 	}
+	
+	public Game[] find(String category) {
+		
+		List<Game> list = new ArrayList<Game>();
+		
+		String query = category == null? "select * from Games" : "select * from Games where category='"+ category + "'";
+		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
+		try {
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				double price = rs.getDouble("price");
+				String desc = rs.getString("description");
+				int qty = rs.getInt("quantity");
+				String cat = rs.getString("category");
+				String image = rs.getString("image");
+				list.add(new Game(id,name,desc,price,qty,cat, image));
+			}
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list.toArray(new Game[list.size()]);
+	}
+	
+	public Game[] findByName(String search) {
+		
+		List<Game> list = new ArrayList<Game>();
+		String query = "select * from Games where LCASE(name) Like LCASE('%"+ search + "%')";
+		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
+		try {
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				Game gm = game.get(id);
+				String name = rs.getString("name");
+				double price = rs.getDouble("price");
+				String desc = rs.getString("description");
+				int qty = rs.getInt("quantity");
+				String cat = rs.getString("category");
+				String image = rs.getString("image");
+				list.add(new Game(id,name,desc,price,qty,cat, image));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list.toArray(new Game[list.size()]);
+	}
+	
 	
 	private DBStatus GetStatus() {
 		

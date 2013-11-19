@@ -38,7 +38,7 @@ public class InventoryController extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		DBAccess.getInstance();
-		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll(null));
+		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
 		RequestDispatcher rd1=request.getRequestDispatcher("Inventory.jsp");
 		rd1.forward(request, response);
 		

@@ -37,13 +37,14 @@
 				<div id="logo"><a href="HomeController"><img src="images/logo.gif" alt="" /></a></div>
 				<div id="topmenu">
 					<ul>
-						<li><a href="#">LOGIN</a></li>
+						<li><a href="#">LOGOUT</a></li>
 					</ul>
 				</div>
 				<div id="topsearch">
-				<form method="post" action="">
-					<p><span class="bg_input"><input type="text" name="search" class="inputbox" /></span></p>
-				</form>
+					<form method="post" action="HomeController">
+						<input type="hidden" name="option" value="search"/>
+						<p><span class="bg_input"><input type="text" name="search" class="inputbox" /></span></p>
+					</form>
 				</div>
 			</div>
 			
@@ -71,9 +72,10 @@
 					</ul>
 				</div>
 				<div id="topcart">
-					<a href="Cart.jsp"><img src="images/icon_cart.png" alt="" /></a>&nbsp;now in your cart <strong>0 items</strong>
+					<% Cart Cart = (Cart) request.getSession().getAttribute("cart");	%>
+					<a href="Cart.jsp"><img src="images/icon_cart.png" alt="" /></a>&nbsp;now in your cart <strong><%= Cart == null? 0 + " " : Cart.getItemCount() + " "%> items</strong>	
 				</div>
-		
+			</div>
 			<div id="content">
 				<div id="content_left">
 					

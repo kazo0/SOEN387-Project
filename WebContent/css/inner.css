@@ -59,7 +59,7 @@ p.nomargin{margin:0px;}
 }
 
 .headings ul li.priview, .proList ul li.priview {
-	width:310px;
+	width:300px;
 	padding-left:5px;
 	text-align:left;
 }
@@ -73,9 +73,14 @@ p.nomargin{margin:0px;}
 	width:85px;
 	font-weight:bold;
 }
+.headings ul li.status, .proList ul li.status {
+	width:50px;
+}
+
 .headings ul li.remove, .proList ul li.remove {
 	width:100px;
 }
+
 
 /* FONT */
 .txt_bold{font-weight:bold;}

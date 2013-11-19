@@ -179,6 +179,8 @@ code {
 
 /* mainbox */
 .mainbox{ background-image:url(../images/c_main_linebottom.gif); background-repeat:repeat-x; background-position:bottom; width:725px}
+.mainbox.large{ background-image:url(../images/c_main_linebottom.gif); background-repeat:repeat-x; background-position:bottom; width:950px}
+
 .mainbox_linetop{ background-image:url(../images/c_main_linetop.gif); background-repeat:repeat-x; background-position:top;}
 .mainbox_lineleft{ background-image:url(../images/c_main_lineleft.gif); background-repeat:repeat-y; background-position:left;}
 .mainbox_lineright{ background-image:url(../images/c_main_lineright.gif); background-repeat:repeat-y; background-position:right;}

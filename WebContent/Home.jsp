@@ -5,20 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-  <meta name="robots" content="index, follow" />
-  <meta name="keywords" content="" />
-  <meta name="title" content="" />
-  <meta name="description" content="" />
-<title>Shopping Cart - 387 Team5</title>
+
+<title>Home - 387 Team5</title>
 
 <!-- ////////////////////////////////// -->
 <!-- //      Start Stylesheets       // -->
 <!-- ////////////////////////////////// -->
 <link href="css/style.css" rel="stylesheet" type="text/css" />
-<!--[if IE 6]>
-    <script type="text/javascript" src="js/unitpngfix.js"></script>
-	<link href="css/ie6.css" rel="stylesheet" type="text/css" />
-<![endif]-->
 <!-- ////////////////////////////////// -->
 <!-- //      Javascript Files        // -->
 <!-- ////////////////////////////////// -->
@@ -36,24 +29,23 @@
 </head>
 <body>
 	
-	<!-- BEGIN CONTAINER -->
 	<div id="container">
 		<!-- centercolumn -->
 		<div id="centercolumn">
 		
-			<!-- BEGIN HEADER -->
 			<div id="top">
 				<div id="logo"><a href="HomeController"><img src="images/logo.gif" alt="" /></a></div><!-- end logo -->
 				<div id="topmenu">
 					<ul>
-						<li><a href="#">LOGIN</a></li>
+						<li><a href="#">LOGOUT</a></li>
 					</ul>
-				</div><!-- end topmenu -->
+				</div>
 				<div id="topsearch">
 				<form method="post" action="HomeController">
+					<input type="hidden" name="option" value="search"/>
 					<p><span class="bg_input"><input type="text" name="search" class="inputbox" /></span></p>
 				</form>
-				</div><!-- end topsearch -->
+				</div>
 			</div>
 			
 			<div id="slides_container">
@@ -62,15 +54,15 @@
 					<h1>Product Title</h1>
 					<p>This website is a project for Concordia SOEN387 in collaboration with Game Zone, a video game retailer in Montreal. With its agreement, we used it as a sample case in our course. We have implemented an online video game store where a user may browse and purchase video games and where an admin can manager said orders. </p>
 					<p style="text-align:right"><a href="product_description.html"><img src="images/but_details.png" alt="" /></a></p>
-				</div><!-- end introTex -->
+				</div>
 				<div id="content_slider">
 					<div id="slider">
 						<ul>
 							<li><img src="images/stickman.png" alt="" /></li>
 						</ul>
-					</div><!-- end slider -->
-				</div><!-- end content_slider -->
-			</div><!-- end slides_container -->
+					</div>
+				</div>
+			</div>
 			
 			<div id="menu">
 				<div id="mainmenu">
@@ -78,17 +70,16 @@
 						<li><a href="HomeController" class="active">Home</a></li>
 						<li><a href="Cart.jsp">Checkout</a></li>
 					</ul>
-				</div><!-- end mainmenu -->
+				</div>
 				<div id="topcart">
 					<% Cart Cart = (Cart) request.getSession().getAttribute("cart");	%>
 					<a href="Cart.jsp"><img src="images/icon_cart.png" alt="" /></a>&nbsp;now in your cart <strong><%= Cart == null? 0 + " " : Cart.getItemCount() + " "%> items</strong>	
 				</div>
-				<!-- end topcart -->
-			</div><!-- end menu -->
+				
+			</div>
 			
-			<!-- END OF HEADER -->
+
 			
-			<!-- BEGIN CONTENT -->
 			<div id="content">
 				<div id="content_left">
 			
@@ -107,56 +98,47 @@
 										
 										
 										<%
-										Game[] Items = (Game[]) request.getSession().getAttribute("items");
-										for (int i = 0; i < Items.length; i++) {
- 
-										// If the Item is the Last Row Right
-										if (i == Items.length -1) {%>
-							 			<div class="product">
-											<h4 class="title_product"><%= Items[i].getName()%></h4>
-											<p><a href="product_description.html"><img width="141" height="129" src="<%= Items[i].getImage()==null? "images/notfound.jpg" :  Items[i].getImage()%>" alt="" class="imgleft" /></a></p>
-											<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae.</p>
-											<p class="price_small">$<%= Items[i].getPrice() %></p>
-											<p><a href="product_description.html"><img src="images/but_details.png" alt="" /></a>&nbsp;&nbsp;<a href="CartController?option=add&gameID=<%= Items[i].getID() %>&price=<%= Items[i].getPrice() %>&name=<%= Items[i].getName() %>"><img src="images/but_addtocart.png" alt="" /></a></p>
-										</div>
-										 <% continue ; }
-										// If the Item is the Last Row Left
-										else if (i == Items.length -2) {%>
-										<br style="clear:both" />
-										<div class="product borderright" >
-											<h4 class="title_product"><%= Items[i].getName()%></h4>
-											<p><a href="product_description.html"><img width="141" height="129" src="<%= Items[i].getImage()==null? "images/notfound.jpg" :  Items[i].getImage()%>" alt="" class="imgleft" /></a></p>
-											<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae.</p>
-											<p class="price_small">$<%= Items[i].getPrice() %></p>
-											<p><a href="product_description.html"><img src="images/but_details.png" alt="" /></a>&nbsp;&nbsp;<a href="CartController?option=add&gameID=<%= Items[i].getID() %>&price=<%= Items[i].getPrice() %>&name=<%= Items[i].getName() %>"><img src="images/but_addtocart.png" alt="" /></a></p>
-										</div>	
-										 <%continue; } %>
+										Game[] Items = (Game[]) request.getSession().getAttribute("games");
+										for (int i = 0; i < Items.length; i++) {%>
+									
 										<%
-										// If the Item is Even
-										if (i % 2 == 0) { %>
-										<div class="product borderright borderbottom">
+											// Even Item
+											if (i % 2 == 0)
+											{
+												if (i == Items.length -1)
+												{
+													// If it's a last right item;
+													%><div class="product"><%
+												}
+												else if (i == Items.length -2) 
+												{
+													// If it's the last left item
+													%><div class="product borderright"><%
+												}
+												else 
+												// If its ODD
+												%><div class="product borderright borderbottom"><%
+											}
+											// Odd Item
+											else {
+												if (i == Items.length -1)
+												{
+													// If it's a last left item;
+													%><div class="product"><%
+												}
+												else 
+												// If its Even
+												%><div class="product borderbottom"><%
+											}
+											%>
 											<h4 class="title_product"><%= Items[i].getName()%></h4>
 											<p><a href="product_description.html"><img width="141" height="129" src="<%= Items[i].getImage()==null? "images/notfound.jpg" :  Items[i].getImage()%>" alt="" class="imgleft" /></a></p>
 											<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae.</p>
 											<p class="price_small">$<%= Items[i].getPrice() %></p>
 											<p><a href="product_description.html"><img src="images/but_details.png" alt="" /></a>&nbsp;&nbsp;<a href="CartController?option=add&gameID=<%= Items[i].getID() %>&price=<%= Items[i].getPrice() %>&name=<%= Items[i].getName() %>"><img src="images/but_addtocart.png" alt="" /></a></p>
 										</div>
-										<% }
-										// If the Item is Odd
-										else { %>
-											<div class="product borderbottom">
-											<h4 class="title_product"><%= Items[i].getName()%></h4>
-											<p><a href="product_description.html"><img width="141" height="129" src="<%= Items[i].getImage()==null? "images/notfound.jpg" :  Items[i].getImage()%>" alt="" class="imgleft" /></a></p>
-											<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae.</p>
-											<p class="price_small">$<%= Items[i].getPrice() %></p>
-											<p><a href="product_description.html"><img src="images/but_details.png" alt="" /></a>&nbsp;&nbsp;<a href="CartController?option=add&gameID=<%= Items[i].getID() %>&price=<%= Items[i].getPrice() %>&name=<%= Items[i].getName() %>"><img src="images/but_addtocart.png" alt="" /></a></p>
-										</div>
-										
 										<%} %>
-									 
-									    <% } %>
-								
-										<div class="clr"></div><!-- clear float -->
+										<div class="clr"></div>
 										</div>
 										</div>
 									</div>
@@ -166,10 +148,10 @@
 						</div>
 						</div>
 						</div>
-						</div><!-- end mainbox -->
+						</div>
 						
-					</div><!-- end maincontent -->
-				</div><!-- end content_left -->
+					</div>
+				</div>
 				<div id="content_right">
 					<div class="sidebox">
 						<div class="sidebox_repeat">
@@ -189,28 +171,23 @@
 						</div>
 						</div>
 						</div>
-					</div><!-- end sidebox -->
+					</div>
 
-				</div><!-- end content_right -->
-				<div class="clr"></div><!-- clear float -->
-			</div><!-- end content -->
-			<!-- END OF CONTENT -->
+				</div>
+				<div class="clr"></div>
+			</div>
 			
 		</div>
-		<!-- end centercolumn -->
 	</div>
-	<!-- END OF CONTAINER -->
 	
-	<!-- BEGIN FOOTER -->
 	<div id="bottom_container">
 		<div id="footer">
 			<div id="footleft">
 				Copyright &copy;2013. All rights reserved
-			</div><!-- end footleft -->
+			</div>
 			
 		</div>
 	</div>
-	<!-- END OF FOOTER -->
 	
 </body>
 </html>

@@ -41,7 +41,7 @@ public class GameController extends HttpServlet {
 			gm.markRemoved();
 		}
 		
-		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll(null));
+		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
 		RequestDispatcher rd1=request.getRequestDispatcher("Inventory.jsp");
 		rd1.forward(request, response);
 	
@@ -52,6 +52,11 @@ public class GameController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if (request.getParameter("add") != null) {
+			RequestDispatcher rd1=request.getRequestDispatcher("AddGame.jsp");
+			rd1.forward(request, response);
+			return;
+		}
 		String opt = request.getParameter("option");
 		
 		if (opt.equals("edit")){
@@ -75,8 +80,8 @@ public class GameController extends HttpServlet {
 			gm.markDirty();
 			
 	
-			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll(null));
-			RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
+			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
+			RequestDispatcher rd1=request.getRequestDispatcher("Inventory.jsp");
 			rd1.forward(request, response);
 		}
 		else if (opt.equals("add")){
@@ -92,7 +97,7 @@ public class GameController extends HttpServlet {
 			Game gm = new Game(-1, name, desc, price, qty, cat[0], image);
 			gm.markNew();
 			
-			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll(null));
+			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
 			RequestDispatcher rd1=request.getRequestDispatcher("Inventory.jsp");
 			rd1.forward(request, response);
 			
@@ -100,7 +105,7 @@ public class GameController extends HttpServlet {
 		else if (opt.equals("commit")){
 			UOW.getCurrent().commit();
 			
-			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll(null));
+			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
 			RequestDispatcher rd1=request.getRequestDispatcher("Inventory.jsp");
 			rd1.forward(request, response);
 			
