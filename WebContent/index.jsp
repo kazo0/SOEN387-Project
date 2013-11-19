@@ -83,7 +83,7 @@
 											<form action="HomeController" method="post">
 												<p><label>Username</label><input name="uname" type="text" /></p>
 												<p><label>Password</label><input name="pass" type="text" /></p>
-												<input type="submit" value ="Login" />
+												<input type="submit" name="login" value ="Login" />
 											</form>
 											<div class="clr"></div>
 											<br /><br />

@@ -40,7 +40,7 @@ public class HomeController extends HttpServlet {
 
 		if (request == null)
 		{
-			RequestDispatcher rd1=request.getRequestDispatcher("Index.jsp");
+			RequestDispatcher rd1=request.getRequestDispatcher("index.jsp");
 			rd1.forward(request, response);
 		}
 		String category = request.getParameter("category");
@@ -56,26 +56,33 @@ public class HomeController extends HttpServlet {
 		// Init Connection
 		DBAccess.getInstance();
 		RequestDispatcher rd1 = request.getRequestDispatcher("Home.jsp");
-		String username = request.getParameter("uname");
-		String password = request.getParameter("pass");
-		if (username== null || password ==null)
-		{
-			rd1=request.getRequestDispatcher("index.jsp");
+		if (request.getParameter("login") != null) {
+			String username = request.getParameter("uname");
+			String password = request.getParameter("pass");
+			if (username.isEmpty() || password.isEmpty())
+			{
+				request.getSession(true).setAttribute("error", "Username or Password are empty");
+				rd1=request.getRequestDispatcher("index.jsp");
+			}
+			else {
+				User user  = LoginGateway.getInstance().Login(username, password);
+				if (user == null)
+				{
+					request.getSession(true).setAttribute("error", "Invalid Login Info");
+					rd1=request.getRequestDispatcher("index.jsp");
+				}
+				if (user.isAdmin()) {
+					rd1=request.getRequestDispatcher("InventoryController");
+				}
+				request.getSession(true).setAttribute("user", user);
+				request.getSession(true).setAttribute("games",GameMapper.getInstance().find(null));
+			}
 		}
-		User user  = LoginGateway.getInstance().Login(username, password);
-		if (user == null)
-		{
-			request.getSession(true).setAttribute("error", "Invalid Login Info");
-			rd1=request.getRequestDispatcher("index.jsp");
+		if (request.getParameter("option")!= null && request.getParameter("option").equals("search"))  {
+			String search = request.getParameter("search");
+			if (search != null) 
+				request.getSession(true).setAttribute("games",GameMapper.getInstance().findByName(search));
 		}
-		
-		String option = request.getParameter("option");
-		String search = request.getParameter("search");
-
-		if (option != null && search != null) {
-			request.getSession(true).setAttribute("games",GameMapper.getInstance().findByName(search));
-		}
-		request.getSession(true).setAttribute("user", user);
 		rd1.forward(request, response);
 	}
 
