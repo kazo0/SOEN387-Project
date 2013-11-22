@@ -55,6 +55,7 @@ public class HomeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Init Connection
 		DBAccess.getInstance();
+		
 		RequestDispatcher rd1 = request.getRequestDispatcher("Home.jsp");
 		if (request.getParameter("login") != null) {
 			String username = request.getParameter("uname");
@@ -66,11 +67,13 @@ public class HomeController extends HttpServlet {
 			}
 			else {
 				User user  = LoginGateway.getInstance().Login(username, password);
+				boolean isAdmin = false;
 				if (user != null)
 				{	
 					if (user.isAdmin()) {
-						rd1=request.getRequestDispatcher("InventoryController");
+						isAdmin = true;
 					}
+					request.getSession(true).setAttribute("isAdmin", isAdmin);
 					request.getSession(true).setAttribute("user", user);
 					request.getSession(true).setAttribute("games",GameMapper.getInstance().find(null));
 				}
