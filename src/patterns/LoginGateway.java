@@ -55,7 +55,39 @@ public class LoginGateway
 			{
 				return null;
 			}			
-	}	
+	}
+	
+	public User getUser(int id)
+	{
+		try
+		{
+			String query = "select * from Users where id ='" + id + "'";				
+			ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
+			
+			if(rs == null)
+				return null;
+			rs.next();
+			int id_ = rs.getInt("id");
+			String firstName = rs.getString("firstName");
+			String lastName = rs.getString("lastName");
+			String username = rs.getString("username");
+			String password = rs.getString("password");
+			boolean isAdmin = rs.getBoolean("isAdmin");
+			String phone = rs.getString("phone");
+			String city = rs.getString("city");
+			String country = rs.getString("country");
+			String province = rs.getString("province");
+			String line1 = rs.getString("line1");
+			String line2 = rs.getString("line2");
+			
+			return new User(id_, firstName,lastName,username,password,isAdmin, phone, city, country, province, line1, line2);
+		}
+		catch (Exception ex) 
+		{
+			return null;
+		}			
+		
+	}
 	
 }
 
