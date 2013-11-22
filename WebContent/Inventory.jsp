@@ -110,9 +110,9 @@
 																	<div class="proList">
 																		<ul>
 																			<li class="priview"><%= Items[i].getName() %></li>
-																			<li class="priceHead">$<%=Items[0].getPrice() %></li>
-																			<li class="quantity"><%= Items[0].getQty() %></li>
-																			<li class="status"><%= Items[0].getStatus() %></li>
+																			<li class="priceHead">$<%=Items[i].getPrice() %></li>
+																			<li class="quantity"><%= Items[i].getQty() %></li>
+																			<li class="status"><%= Items[i].getStatus() %></li>
 																			<% if (Items[i].getID() != -1) {  %>
 																				<li class=edit>&nbsp;<a href="GameEditController?id=<%= Items[i].getID()%>">Edit</a></li>
 																				<li class="remove">&nbsp;<a href="GameController?option=delete&id=<%= Items[i].getID()%>">Remove</a></li>
