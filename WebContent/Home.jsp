@@ -135,7 +135,7 @@
 											<p class="category_small"><%= Items[i].getCategory() %></p>
 											<p><a href="product_description.html"><img width="141" height="129" src="<%= Items[i].getImage()==null? "images/notfound.jpg" :  Items[i].getImage()%>" alt="" class="imgleft" /></a></p>
 											<p class="price_small">$<%= Items[i].getPrice() %></p>
-											<p><a href="product_description.html"><img src="images/but_details.png" alt="" /></a>&nbsp;&nbsp;</p>
+											<p><a href="DetailsController?gameID=<%= i %>"><img src="images/but_details.png" alt="" /></a>&nbsp;&nbsp;</p>
 										</div>
 										<%} %>
 										<div class="clr"></div>
