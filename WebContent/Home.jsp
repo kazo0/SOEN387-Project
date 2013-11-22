@@ -132,6 +132,7 @@
 											}
 											%>
 											<h4 class="title_product"><%= Items[i].getName()%></h4>
+											<p class="category_small"><%= Items[i].getCategory() %></p>
 											<p><a href="product_description.html"><img width="141" height="129" src="<%= Items[i].getImage()==null? "images/notfound.jpg" :  Items[i].getImage()%>" alt="" class="imgleft" /></a></p>
 											<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae.</p>
 											<p class="price_small">$<%= Items[i].getPrice() %></p>

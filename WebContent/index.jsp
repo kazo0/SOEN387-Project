@@ -78,7 +78,10 @@
 											<br />
 											<h3>Login</h3>
 											<p style="color:red;">
-												<%= session.getAttribute("error") %>
+												<% if (session.getAttribute("error") != null)
+													{%>
+														<%= session.getAttribute("error") %><%
+													}%>
 											</p>
 											<form action="HomeController" method="post">
 												<p><label>Username</label><input name="uname" type="text" /></p>

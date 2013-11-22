@@ -66,16 +66,20 @@ public class HomeController extends HttpServlet {
 			}
 			else {
 				User user  = LoginGateway.getInstance().Login(username, password);
-				if (user == null)
+				if (user != null)
+				{	
+					if (user.isAdmin()) {
+						rd1=request.getRequestDispatcher("InventoryController");
+					}
+					request.getSession(true).setAttribute("user", user);
+					request.getSession(true).setAttribute("games",GameMapper.getInstance().find(null));
+				}
+				else
 				{
 					request.getSession(true).setAttribute("error", "Invalid Login Info");
 					rd1=request.getRequestDispatcher("index.jsp");
 				}
-				if (user.isAdmin()) {
-					rd1=request.getRequestDispatcher("InventoryController");
-				}
-				request.getSession(true).setAttribute("user", user);
-				request.getSession(true).setAttribute("games",GameMapper.getInstance().find(null));
+				
 			}
 		}
 		if (request.getParameter("option")!= null && request.getParameter("option").equals("search"))  {
