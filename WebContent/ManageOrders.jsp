@@ -94,11 +94,13 @@
 											<div id="breadcrumb"><a href="HomeController">Home</a>  &gt;  <a href="InventoryController">Inventory</a></div>
 											<br />
 											<h3>Orders</h3>
+											
 											<% Order[] orders = (Order[])request.getSession().getAttribute("allOrders");
 											
 											for (int i = 0; i < orders.length; i++) 
 											{
 												%>	
+												<form action="OrderController" method="post">
 													<div class="box_large">
 															<div class="box_large_b">
 																<div class="box_large_t">
@@ -108,7 +110,8 @@
 																			<li class="priview">Order Items</li>
 																			<li class="priceHead">Price</li>
 																			<li class="quantity">Qty</li>
-																			<li class="status">Total</li>		
+																			<li class="status">Total</li>
+																			<li class="remove">Remove</li>		
 																		</ul>
 																		<div class="clr"></div>
 																	</div>
@@ -122,7 +125,11 @@
 																			<li class="priview"><%= oi.getName() %></li>
 																			<li class="quantity"><%= oi.getQuantity() %></li>
 																			<li class="priceHead"><%= oi.getPrice()%></li>
-																			<li class="total">$<%= oi.getPrice() *  oi.getQuantity()%></li>			
+																			<li class="total">$<%= oi.getPrice() *  oi.getQuantity()%></li>
+																			<%if (orders[i].getOrderStatus().equals("Processing") == true) 
+																			{%>		
+																			<li class="remove"><a href="OrderController?option=deleteItem&orderIndex=<%= i%>&itemIndex=<%=orders[i].getOrderedGames().indexOf(oi)%>"><img src="images/delete.png" alt="" class="but" /></a>&nbsp;<a href="OrderController?option=delete&orderIndex=<%= i%>&itemIndex=<%=orders[i].getOrderedGames().indexOf(oi)%>">Remove</a></li>
+																			<%} %>	
 																		</ul>
 																		<div class="clr"></div>
 																	</div>
@@ -140,12 +147,19 @@
 																		color = "orange";
 																	}
 																		%>
+																		
 																	<p>Status : <label style="color:<%=color%>;font-weight:bold"><%= status %></label></p>
 																	<p>Ordered By: <%= orders[i].getUser().getUsername() %></p>
+																	<%if (status.equals("Processing"))
+																	{%>
+																		<input type="submit" name="cancel" value ="Cancel Order" />
+																	<%} %>
+																	
 																	</div>
 																</div>
 															</div>
 													</div>
+													</form>
 											<% } %>
 											<div class="clr"></div>
 											<br /><br />

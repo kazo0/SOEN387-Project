@@ -9,6 +9,7 @@ public class Order extends DomainObject {
 	private User user;
 	private String orderStatus;
 	
+	
 	public Order(int id, List<OrderItem> orderItems, String orderStatus, User user)
 	{
 		super(id, DBStatus.CLEAN);

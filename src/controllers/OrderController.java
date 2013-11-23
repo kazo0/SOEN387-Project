@@ -65,6 +65,11 @@ public class OrderController extends HttpServlet {
 			RequestDispatcher rd1=request.getRequestDispatcher("MyOrders.jsp");
 			rd1.forward(request, response);
 		}
+		else if (opt.equals("deleteItem"))
+		{
+			//Delete Order Item based on the paramaters sent back "orderIndex" and "itemIndex"
+			//We need to update the Game quantities for the delete order item.
+		}
 
 		
 	}
@@ -73,7 +78,11 @@ public class OrderController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		 if (request.getParameter("cancel") != null)
+		 {
+			 //Delete the order, the OrderItems will auto-cascade
+			 //We also need to update the Game quantities after cancelling an order
+		 }
 	}
 
 }
