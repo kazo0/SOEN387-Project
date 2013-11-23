@@ -53,7 +53,6 @@
 				<div id="introText">
 					<h1>Product Title</h1>
 					<p>This website is a project for Concordia SOEN387 in collaboration with Game Zone, a video game retailer in Montreal. With its agreement, we used it as a sample case in our course. We have implemented an online video game store where a user may browse and purchase video games and where an admin can manager said orders. </p>
-					<!-- <p style="text-align:right"><img src="images/but_details.png" alt="" /></p> -->
 				</div>
 				<div id="content_slider">
 					<div id="slider">
@@ -108,27 +107,6 @@
 										<%
 										Game[] Items = (Game[]) request.getSession().getAttribute("games");
 										for (int i = 0; i < Items.length; i++) {%>
-									<div id="menu">
-				<div id="mainmenu">
-					<ul>
-						<li><a href="HomeController" class="active">Home</a></li>
-						<li><a href="Cart.jsp">Checkout</a></li>
-						<li><a href="OrderController?option=my">My Orders</a></li>
-						<% if ((Boolean)request.getSession().getAttribute("isAdmin") == true)
-							{
-								%>
-								<li><a href="InventoryController">Manage Inventory</a></li>
-								<li><a href="OrderController?option=manage">Manage Orders</a></li>
-								<%
-							}%>
-					</ul>
-				</div>
-				<div id="topcart">
-					<% Cart = (Cart) request.getSession().getAttribute("cart");	%>
-					<a href="Cart.jsp"><img src="images/icon_cart.png" alt="" /></a>&nbsp;now in your cart <strong><%= Cart == null? 0 + " " : Cart.getItemCount() + " "%> items</strong>	
-				</div>
-				
-			</div>
 										<%
 											// Even Item
 											if (i % 2 == 0)

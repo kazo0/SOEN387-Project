@@ -49,7 +49,6 @@
 				<div id="introText">
 					<h1>Project Description</h1>
 					<p>This website is a project for Concordia SOEN387 in collaboration with Game Zone, a video game retailer in Montreal. With its agreement, we used it as a sample case in our course. We have implemented an online video game store where a user may browse and purchase video games and where an admin can manager said orders. </p>
-					<p style="text-align:right"><a href="product_description.html"><img src="images/but_details.png" alt="" /></a></p>
 				</div><!-- end introTex -->
 				<div id="content_slider">
 					<div id="slider">
