@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="models.Order"%>
+    pageEncoding="ISO-8859-1" import="models.Order" import="models.OrderItem"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 
@@ -64,7 +64,7 @@
 				<div id="mainmenu">
 					<ul>
 						<li><a href="HomeController">Home</a></li>
-						<li><a href="InventoryController">Inventory</a></li>
+						<li><a href="Cart.jsp">Checkout</a></li>
 						<li><a href="OrderController?option=my">My Orders</a></li>
 						<% if ((Boolean)request.getSession().getAttribute("isAdmin") == true)
 							{
@@ -94,41 +94,59 @@
 											<div id="breadcrumb"><a href="HomeController">Home</a>  &gt;  <a href="InventoryController">Inventory</a></div>
 											<br />
 											<h3>Orders</h3>
-											<div class="box_large">
-													<div class="box_large_b">
-														<div class="box_large_t">
-															<div class="padbox_small">
-															<div class="headings">
-																<ul>
-																	<li class="priview">Name</li>
-																	<li class="priceHead">Price</li>
-																	<li class="quantity">Qty</li>
-																	<li class="status">Status</li>
-																	<li class="edit">Edit</li>
-																	<li class="remove">Remove</li>
-																</ul>
-																<div class="clr"></div>
-															</div>
-														
-															<form action="OrderController" method="post" >
-															<%
-																Order[] orders = (Order[])request.getSession().getAttribute("allOrders");
-																
-																for (int i = 0; i < orders.length; i++) {
-																%>
+											<% Order[] orders = (Order[])request.getSession().getAttribute("allOrders");
+											
+											for (int i = 0; i < orders.length; i++) 
+											{
+												%>	
+													<div class="box_large">
+															<div class="box_large_b">
+																<div class="box_large_t">
+																	<div class="padbox_small">
+																	<div class="headings">
+																		<ul>
+																			<li class="priview">Order Items</li>
+																			<li class="priceHead">Price</li>
+																			<li class="quantity">Qty</li>
+																			<li class="status">Total</li>		
+																		</ul>
+																		<div class="clr"></div>
+																	</div>
 																	
-																<% } %>
-		
-															<br />
-																
-																<input type="submit" name="add" value ="Add Game" />
-																<input type="hidden" name="option" value="commit" />
-																<input type="submit" value ="Commit" />
-															</form>
+																	<%
+																	for(OrderItem oi : orders[i].getOrderedGames())
+																	{ %>
+																	
+																	<div class="proList">
+																		<ul>
+																			<li class="priview"><%= oi.getName() %></li>
+																			<li class="quantity"><%= oi.getQuantity() %></li>
+																			<li class="priceHead"><%= oi.getPrice()%></li>
+																			<li class="total">$<%= oi.getPrice() *  oi.getQuantity()%></li>			
+																		</ul>
+																		<div class="clr"></div>
+																	</div>
+																	<br />
+																	<% } %>
+																	<p><label>Total : </label><%= orders[i].getTotal() %></p>
+																	<% String status = (String)orders[i].getOrderStatus();
+																	String color = "green";
+																	if (status.equals("Shipped"))
+																	{
+																		color = "navy";
+																	}
+																	else if (status.equals("Processing"))
+																	{
+																		color = "orange";
+																	}
+																		%>
+																	<p>Status : <label style="color:<%=color%>;font-weight:bold"><%= status %></label></p>
+																	<p>Ordered By: <%= orders[i].getUser().getUsername() %></p>
+																	</div>
+																</div>
 															</div>
-														</div>
 													</div>
-											</div>
+											<% } %>
 											<div class="clr"></div>
 											<br /><br />
 										</div>

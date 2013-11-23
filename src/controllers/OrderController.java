@@ -45,7 +45,9 @@ public class OrderController extends HttpServlet {
 			{
 				//View All Orders
 				Order[] allOrders = OrderMapper.getInstance().getAll();
-				request.getSession(true).setAttribute("allOrders", allOrders);		
+				request.getSession(true).setAttribute("allOrders", allOrders);
+				RequestDispatcher rd1=request.getRequestDispatcher("ManageOrders.jsp");
+				rd1.forward(request, response);
 			
 			}
 			else

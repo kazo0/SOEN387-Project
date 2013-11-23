@@ -36,11 +36,11 @@ public class OrderMapper {
 	public Order[] getAll() {
 		
 		List<Order> list = new ArrayList<Order>();
+		Order o = null;
 		
 		String query = "select * from Orders inner join OrderItems on Orders.id = OrderItems.orderID";
 		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
 		try {
-			boolean added = false;
 			int prevID = -1;
 			int prevUserID = -1;
 			String prevStatus = "";
@@ -55,45 +55,46 @@ public class OrderMapper {
 				{
 					if (prevID != -1)
 					{
-						Order o = new Order(prevID, new ArrayList<OrderItem>(oi), prevStatus, LoginGateway.getInstance().getUser(prevUserID));
+						o = new Order(prevID, new ArrayList<OrderItem>(oi), prevStatus, LoginGateway.getInstance().getUser(prevUserID));
 						list.add(o);
 						oi.clear();
-						added = true;
-					}
-					else
-					{
-						added = false;
+
 					}
 					prevID = id;
 					prevUserID = uid;
 					prevStatus = status;
 				}
 				
-				if (!added)
-				{	
-					Order o = order.get(id);
-					if (o == null)
-					{
-						int gid = rs.getInt("gameID");
-						int qty = rs.getInt("quantity");
-						double price = rs.getDouble("price");
-						String name = rs.getString("name");
-						
-						oi.add(new OrderItem(gid, qty, price, name));
-					}
-					else
-					{
-						prevID = id;
-						prevUserID = uid;
-						prevStatus = status;
+				o = order.get(id);
+				if (o == null)
+				{
+					int gid = rs.getInt("gameID");
+					int qty = rs.getInt("quantity");
+					double price = rs.getDouble("price");
+					String name = rs.getString("name");
+					
+					oi.add(new OrderItem(gid, qty, price, name));
+				}
+				else
+				{
+					prevID = id;
+					prevUserID = uid;
+					prevStatus = status;
+					if (!list.contains(o)){
 						list.add(o);
-						added = true;
-						continue;
 					}
+					continue;
+				}
 					
 
-				}
+				
 			}
+			if (prevID != -1 && !oi.isEmpty())
+			{
+				o = new Order(prevID, new ArrayList<OrderItem>(oi), prevStatus, LoginGateway.getInstance().getUser(prevUserID));
+				list.add(o);
+			}
+			
 			// Add All New Orders
 			List<DomainObject> addedObjects = UOW.getCurrent().getAllNew();
 			for(DomainObject item : addedObjects) {
@@ -149,7 +150,6 @@ public class OrderMapper {
 		String query = "select * from Orders INNER JOIN OrderItems on Orders.id = OrderItems.OrderID where Orders.userID = '" + uid + "'";
 		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
 		try {
-			boolean added = false;
 			int prevID = -1;
 			String prevStatus = "";
 			List<OrderItem> oi = new ArrayList<OrderItem>();
@@ -186,13 +186,14 @@ public class OrderMapper {
 				{
 					prevID = id;
 					prevStatus = status;
-					list.add(o);
+					if (!list.contains(o)){
+						list.add(o);
+					}
 					
-					added = true;
 					continue;
 				}
 			}
-			if (prevID != -1)
+			if (prevID != -1 && !oi.isEmpty())
 			{
 				o = new Order(prevID, new ArrayList<OrderItem>(oi), prevStatus, LoginGateway.getInstance().getUser(uid));
 				list.add(o);

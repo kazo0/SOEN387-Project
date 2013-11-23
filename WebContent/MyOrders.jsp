@@ -64,7 +64,7 @@
 				<div id="mainmenu">
 					<ul>
 						<li><a href="HomeController">Home</a></li>
-						<li><a href="InventoryController">Inventory</a></li>
+						<li><a href="Cart.jsp">Checkout</a></li>
 						<li><a href="OrderController?option=my">My Orders</a></li>
 						<% if ((Boolean)request.getSession().getAttribute("isAdmin") == true)
 							{
