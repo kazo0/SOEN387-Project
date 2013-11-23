@@ -278,10 +278,18 @@ public class OrderMapper {
 		DBAccess.getInstance().Execute(query);
 		//soleInstance.order.remove(oid);
 		
+		Order o = soleInstance.get(oid);
+		OrderItem oi = o.getOrderedGames().get(oiIndex);
 		
 		Game gm = GameMapper.getInstance().get(gid);
-		gm.setQty(gm.getQty() + soleInstance.get(oid).getOrderedGames().get(oiIndex).getQuantity());
+		gm.setQty(gm.getQty() + oi.getQuantity());
 		GameMapper.getInstance().update(gm);
+		
+		o.getOrderedGames().remove(oiIndex);
+		if (o.getOrderedGames().size() == 0)
+		{
+			soleInstance.delete(oid);
+		}
 		
 	}
 

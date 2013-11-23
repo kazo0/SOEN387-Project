@@ -152,6 +152,7 @@
 																	<p>Ordered By: <%= orders[i].getUser().getUsername() %></p>
 																	<%if (status.equals("Processing"))
 																	{%>
+																		<input type="hidden" name="orderID" value = "<%= orders[i].getID() %>"/>
 																		<input type="submit" name="cancel" value ="Cancel Order" />
 																	<%} %>
 																	

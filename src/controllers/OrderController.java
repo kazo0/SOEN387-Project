@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -72,11 +73,16 @@ public class OrderController extends HttpServlet {
 			//We need to update the Game quantities for the delete order item.
 			int oid = Integer.parseInt(request.getParameter("orderID"));
 			int itemIndex = Integer.parseInt(request.getParameter("itemIndex"));
-			Order orders = (Order)OrderMapper.getInstance().findById(oid);
+			Order orders = (Order)OrderMapper.getInstance().get(oid);
 			
 			OrderItem deletedItem = orders.getOrderedGames().get(itemIndex);
 			OrderMapper.getInstance().deleteOrderItem(oid, deletedItem.getGameID(), itemIndex);
-			orders.getOrderedGames().remove(itemIndex);
+			
+			
+			Order[] allOrders = OrderMapper.getInstance().getAll();
+			request.getSession(true).setAttribute("allOrders", allOrders);
+			RequestDispatcher rd1=request.getRequestDispatcher("ManageOrders.jsp");
+			rd1.forward(request, response);
 		}
 
 		
@@ -90,6 +96,18 @@ public class OrderController extends HttpServlet {
 		 {
 			 //Delete the order, the OrderItems will auto-cascade
 			 //We also need to update the Game quantities after cancelling an order
+			 int oid = Integer.parseInt(request.getParameter("orderID"));
+			 Order o = OrderMapper.getInstance().get(oid);
+			 
+			 ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>((ArrayList<OrderItem>)o.getOrderedGames()); 
+			 
+			 //Delete all order items which will then increment the game quantities and delete the order entry
+			 for (int i = orderItems.size() - 1; i >= 0 ; i--)
+			 {
+				 OrderMapper.getInstance().deleteOrderItem(oid, orderItems.get(i).getGameID(), i);
+			 }
+			 
+			 response.sendRedirect("OrderController?option=manage");
 		 }
 	}
 

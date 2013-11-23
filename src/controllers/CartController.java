@@ -89,8 +89,9 @@ public class CartController extends HttpServlet {
 			 Order order = new Order(-1, cart.getOrderItems(), "Processing", user);
 			 OrderMapper.getInstance().insert(order);
 			 request.getSession(true).setAttribute("cart", null);
-			 RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
-				rd1.forward(request, response);
+			 //RequestDispatcher rd1=request.getRequestDispatcher("HomeController");
+				//rd1.forward(request, response);
+			 response.sendRedirect("HomeController");
 		 }
 
 	}
