@@ -128,7 +128,7 @@
 																			<li class="total">$<%= oi.getPrice() *  oi.getQuantity()%></li>
 																			<%if (orders[i].getOrderStatus().equals("Processing") == true) 
 																			{%>		
-																			<li class="remove"><a href="OrderController?option=deleteItem&orderIndex=<%= i%>&itemIndex=<%=orders[i].getOrderedGames().indexOf(oi)%>"><img src="images/delete.png" alt="" class="but" /></a>&nbsp;<a href="OrderController?option=delete&orderIndex=<%= i%>&itemIndex=<%=orders[i].getOrderedGames().indexOf(oi)%>">Remove</a></li>
+																			<li class="remove"><a href="OrderController?option=deleteItem&orderID=<%= orders[i].getID()%>&itemIndex=<%=orders[i].getOrderedGames().indexOf(oi)%>"><img src="images/delete.png" alt="" class="but" /></a>&nbsp;<a href="OrderController?option=deleteItem&orderID=<%= orders[i].getID()%>&itemIndex=<%=orders[i].getOrderedGames().indexOf(oi)%>">Remove</a></li>
 																			<%} %>	
 																		</ul>
 																		<div class="clr"></div>

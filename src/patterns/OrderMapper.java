@@ -10,6 +10,7 @@ import java.util.Map;
 
 import models.DBStatus;
 import models.DomainObject;
+import models.Game;
 import models.Order;
 import models.OrderItem;
 import database.DBAccess;
@@ -247,7 +248,13 @@ public class OrderMapper {
 			String values2 = "'" + o.getID() + "','" + oi.getGameID() + "','" + oi.getQuantity() + "','" + oi.getPrice() + "','" + oi.getName() + "'";
 			String query2 = "INSERT INTO OrderItems (orderID, gameID, quantity, price, name) VALUES (" + values2 + ")";
 			DBAccess.getInstance().Execute(query2);
+			
+			Game gm = GameMapper.getInstance().get(oi.getGameID());
+			gm.setQty(gm.getQty() - oi.getQuantity());
+			GameMapper.getInstance().update(gm);
+			
 		}
+		
 		
 		
 	}
@@ -265,11 +272,16 @@ public class OrderMapper {
 		DBAccess.getInstance().Execute(query);
 		soleInstance.order.remove(key);
 	}
-	public void deleteOrderItem(int oid, int gid)
+	public void deleteOrderItem(int oid, int gid, int oiIndex)
 	{
 		String query = "DELETE FROM OrderItems WHERE orderID='" + oid + "' AND gameID='" + gid + "'";
 		DBAccess.getInstance().Execute(query);
-		soleInstance.order.remove(oid);
+		//soleInstance.order.remove(oid);
+		
+		
+		Game gm = GameMapper.getInstance().get(gid);
+		gm.setQty(gm.getQty() + soleInstance.get(oid).getOrderedGames().get(oiIndex).getQuantity());
+		GameMapper.getInstance().update(gm);
 		
 	}
 

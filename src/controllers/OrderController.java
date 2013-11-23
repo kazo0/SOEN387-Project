@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import patterns.GameMapper;
 import patterns.OrderMapper;
+import models.Game;
 import models.Order;
 import models.OrderItem;
 import models.User;
@@ -67,8 +68,15 @@ public class OrderController extends HttpServlet {
 		}
 		else if (opt.equals("deleteItem"))
 		{
-			//Delete Order Item based on the paramaters sent back "orderIndex" and "itemIndex"
+			//Delete Order Item based on the parameters sent back "orderIndex" and "itemIndex"
 			//We need to update the Game quantities for the delete order item.
+			int oid = Integer.parseInt(request.getParameter("orderID"));
+			int itemIndex = Integer.parseInt(request.getParameter("itemIndex"));
+			Order orders = (Order)OrderMapper.getInstance().findById(oid);
+			
+			OrderItem deletedItem = orders.getOrderedGames().get(itemIndex);
+			OrderMapper.getInstance().deleteOrderItem(oid, deletedItem.getGameID(), itemIndex);
+			orders.getOrderedGames().remove(itemIndex);
 		}
 
 		
