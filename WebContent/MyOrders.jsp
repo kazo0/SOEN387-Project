@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="models.Categories"%>
+    pageEncoding="ISO-8859-1" import="models.Order" import="models.OrderItem"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Inventory - 387 Team5</title>
+<title>Orders - 387 Team5</title>
 
 <!-- ////////////////////////////////// -->
 <!-- //      Start Stylesheets       // -->
@@ -64,6 +64,8 @@
 				<div id="mainmenu">
 					<ul>
 						<li><a href="HomeController">Home</a></li>
+						<li><a href="InventoryController">Inventory</a></li>
+						<li><a href="OrderController?option=my">My Orders</a></li>
 						<% if ((Boolean)request.getSession().getAttribute("isAdmin") == true)
 							{
 								%>
@@ -89,46 +91,61 @@
 									<div class="maincurve_bl">
 									<div class="maincurve_br">
 										<div class="padbox">
-											<div id="breadcrumb"><a href="HomeController">Home</a>  &gt;  <a href="InventoryController">Inventory</a> &gt; <a href="AddGame.jsp">Add Game</a> </div>
+											<div id="breadcrumb"><a href="HomeController">Home</a>  &gt;  <a href="InventoryController">Inventory</a></div>
 											<br />
-											<h3>Add Game</h3>
-											<form action="GameController" method="post">
-															<table>
-																<tr>
-																	<td><label>Name :</label></td>
-																	<td><input name="Name" type="text" /> </td>
-																</tr>
-																<tr>
-																	<td><label>Description :</label></td>
-																	<td><input name="Description" type="text" /> </td>
-																</tr>
-																<tr>
-																	<td><label>Price :</label></td>
-																	<td><input name="Price" type="text" /> </td>
-																</tr>
-																<tr>
-																	<td><label>Quantity :</label></td>
-																	<td><input name="Quantity" type="text" /> </td>
-																</tr>
-																<tr>
-																	<td><label>Image :</label></td>
-																	<td><input name="Image" type="text" /> </td>
-																</tr>
-																<tr>
-																	<td><label>Category :</label></td>
-																	<td>
-																		<select name="Category">
-																			<% String[] cat = new Categories().Categories;%>
-																			<% for(int i = 0; i < cat.length; i+=1) { %>
-																				<option value="<%= cat[i] %>"><%= cat[i]%></option>
-													   				 		<% } %>
-																		</select>
-																	</td>
-																</tr>
-															</table>
-															<input type="hidden" name="option" value="add"/>
-															<input type="submit" value="Add Game" />
-														</form>
+											<h3>Orders</h3>
+											<% Order[] orders = (Order[])request.getSession().getAttribute("userOrders");
+											
+											for (int i = 0; i < orders.length; i++) 
+											{
+												%>	
+													<div class="box_large">
+															<div class="box_large_b">
+																<div class="box_large_t">
+																	<div class="padbox_small">
+																	<div class="headings">
+																		<ul>
+																			<li class="priview">Order Items</li>
+																			<li class="priceHead">Price</li>
+																			<li class="quantity">Qty</li>
+																			<li class="status">Total</li>		
+																		</ul>
+																		<div class="clr"></div>
+																	</div>
+																	
+																	<%
+																	for(OrderItem oi : orders[i].getOrderedGames())
+																	{ %>
+																	
+																	<div class="proList">
+																		<ul>
+																			<li class="priview"><%= oi.getName() %></li>
+																			<li class="quantity"><%= oi.getQuantity() %></li>
+																			<li class="priceHead"><%= oi.getPrice()%></li>
+																			<li class="total">$<%= oi.getPrice() *  oi.getQuantity()%></li>			
+																		</ul>
+																		<div class="clr"></div>
+																	</div>
+																	<br />
+																	<% } %>
+																	<p><label>Total : </label><%= orders[i].getTotal() %></p>
+																	<% String status = (String)orders[i].getOrderStatus();
+																	String color = "green";
+																	if (status.equals("Shipped"))
+																	{
+																		color = "navy";
+																	}
+																	else if (status.equals("Processing"))
+																	{
+																		color = "orange";
+																	}
+																		%>
+																	<p>Status : <label style="color:<%=color%>;font-weight:bold"><%= status %></label></p>
+																	</div>
+																</div>
+															</div>
+													</div>
+											<% } %>
 											<div class="clr"></div>
 											<br /><br />
 										</div>

@@ -55,7 +55,6 @@
 				<div id="mainmenu">
 					<ul>
 						<li><a href="HomeController">Home</a></li>
-						<li><a href="InventoryController" class="active">Inventory</a></li>
 					</ul>
 				</div>
 				

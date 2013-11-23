@@ -69,6 +69,13 @@
 					<ul>
 						<li><a href="HomeController">Home</a></li>
 						<li><a href="Cart.jsp" class="active">Checkout</a></li>
+						<% if ((Boolean)request.getSession().getAttribute("isAdmin") == true)
+							{
+								%>
+								<li><a href="InventoryController">Manage Inventory</a></li>
+								<li><a href="OrderController?option=manage">Manage Orders</a></li>
+								<%
+							}%>
 					</ul>
 				</div>
 				<div id="topcart">

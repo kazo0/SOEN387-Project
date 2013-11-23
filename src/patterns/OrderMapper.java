@@ -43,17 +43,19 @@ public class OrderMapper {
 			boolean added = false;
 			int prevID = -1;
 			int prevUserID = -1;
+			String prevStatus = "";
 			List<OrderItem> oi = new ArrayList<OrderItem>();
 			
 			while(rs.next()) {
 				int id = rs.getInt("id");
 				int uid = rs.getInt("userID");
+				String status = rs.getString("status");
 				
 				if (id != prevID)
 				{
 					if (prevID != -1)
 					{
-						Order o = new Order(prevID, oi, LoginGateway.getInstance().getUser(prevUserID));
+						Order o = new Order(prevID, new ArrayList<OrderItem>(oi), prevStatus, LoginGateway.getInstance().getUser(prevUserID));
 						list.add(o);
 						oi.clear();
 						added = true;
@@ -64,6 +66,7 @@ public class OrderMapper {
 					}
 					prevID = id;
 					prevUserID = uid;
+					prevStatus = status;
 				}
 				
 				if (!added)
@@ -81,6 +84,8 @@ public class OrderMapper {
 					else
 					{
 						prevID = id;
+						prevUserID = uid;
+						prevStatus = status;
 						list.add(o);
 						added = true;
 						continue;
@@ -111,6 +116,7 @@ public class OrderMapper {
 		int qty = 0;
 		double price = 0;
 		String name = "";
+		String status = "";
 		
 		String query = "select * from Orders INNER JOIN OrderItems on Orders.id = OrderItems.OrderID where Orders.id = '"+ id + "'";
 		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
@@ -118,6 +124,7 @@ public class OrderMapper {
 
 			while(rs.next()) {
 				uid = rs.getInt("userID");
+				status = rs.getString("status");
 				gid = rs.getInt("gameID");
 				qty = rs.getInt("quantity");
 				price = rs.getDouble("price");
@@ -125,7 +132,7 @@ public class OrderMapper {
 				
 				oi.add(new OrderItem(gid, qty, price, name));
 			}
-			o = new Order(id, oi, LoginGateway.getInstance().getUser(uid));
+			o = new Order(id, new ArrayList<OrderItem>(oi), status, LoginGateway.getInstance().getUser(uid));
 		
 			
 		} catch (SQLException e) {
@@ -137,56 +144,58 @@ public class OrderMapper {
 	
 	public Order[] findByUserId(int uid) {
 		
+		Order o = null;
 		List<Order> list = new ArrayList<Order>();
 		String query = "select * from Orders INNER JOIN OrderItems on Orders.id = OrderItems.OrderID where Orders.userID = '" + uid + "'";
 		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
 		try {
 			boolean added = false;
 			int prevID = -1;
+			String prevStatus = "";
 			List<OrderItem> oi = new ArrayList<OrderItem>();
 			
 			while(rs.next()) {
 				int id = rs.getInt("id");
+				String status = rs.getString("status");
 				
 				if (id != prevID)
 				{
 					if (prevID != -1)
 					{
-						Order o = new Order(prevID, oi, LoginGateway.getInstance().getUser(uid));
+						o = new Order(prevID, new ArrayList<OrderItem>(oi), prevStatus, LoginGateway.getInstance().getUser(uid));
 						list.add(o);
 						oi.clear();
-						added = true;
-					}
-					else
-					{
-						added = false;
+						
 					}
 					prevID = id;
+					prevStatus = status;
 				}
 				
-				if (!added)
-				{	
-					Order o = order.get(id);
-					if (o == null)
-					{
-						int gid = rs.getInt("gameID");
-						int qty = rs.getInt("quantity");
-						double price = rs.getDouble("price");
-						String name = rs.getString("name");
-						
-						oi.add(new OrderItem(gid, qty, price, name));
-					}
-					else
-					{
-						prevID = id;
-						list.add(o);
-						
-						added = true;
-						continue;
-					}
-					
 
+				o = order.get(id);
+				if (o == null)
+				{
+					int gid = rs.getInt("gameID");
+					int qty = rs.getInt("quantity");
+					double price = rs.getDouble("price");
+					String name = rs.getString("name");
+					
+					oi.add(new OrderItem(gid, qty, price, name));
 				}
+				else
+				{
+					prevID = id;
+					prevStatus = status;
+					list.add(o);
+					
+					added = true;
+					continue;
+				}
+			}
+			if (prevID != -1)
+			{
+				o = new Order(prevID, new ArrayList<OrderItem>(oi), prevStatus, LoginGateway.getInstance().getUser(uid));
+				list.add(o);
 			}
 			// Add All New Orders
 			List<DomainObject> addedObjects = UOW.getCurrent().getAllNew();

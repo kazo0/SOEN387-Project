@@ -85,7 +85,7 @@ public class CartController extends HttpServlet {
 		}
 		 else if (request.getParameter("checkout") != null) {
 			 
-			 Order order = new Order(-1, cart.getOrderItems(), user);
+			 //Order order = new Order(-1, cart.getOrderItems(), user);
 			 request.getSession(true).setAttribute("cart", null);
 			 RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
 				rd1.forward(request, response);
