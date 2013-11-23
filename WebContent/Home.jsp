@@ -166,6 +166,7 @@
 							<div class="padbox_side">
 								<h3>Categories</h3>
 								<ul>
+									<li><a href="HomeController?category=all">All Games</a></li>
 									<%
 										String[]  cat = new Categories().Categories;
 										for(String category : cat) {

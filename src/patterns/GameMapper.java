@@ -71,6 +71,14 @@ public class GameMapper {
 		
 		List<Game> list = new ArrayList<Game>();
 		
+		if(category != null)
+		{
+			if (category.equals("all"))
+			{
+				category = null;
+			}
+		}
+		
 		String query = category == null? "select * from Games" : "select * from Games where category='"+ category + "'";
 		ResultSet rs = DBAccess.getInstance().ExecuteQuery(query);
 		try {

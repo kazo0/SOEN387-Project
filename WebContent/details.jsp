@@ -68,6 +68,7 @@
 					<ul>
 						<li><a href="HomeController" class="active">Home</a></li>
 						<li><a href="Cart.jsp">Checkout</a></li>
+						<li><a href="OrderController?option=my">My Orders</a></li>
 						<% if ((Boolean)request.getSession().getAttribute("isAdmin") == true)
 							{
 								%>

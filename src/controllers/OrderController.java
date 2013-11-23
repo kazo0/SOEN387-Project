@@ -61,8 +61,6 @@ public class OrderController extends HttpServlet {
 		{
 			//View Orders by ID
 			Order[] userOrders = (Order[])OrderMapper.getInstance().findByUserId(user.getId());
-			List<OrderItem> oi = userOrders[0].getOrderedGames();
-			OrderItem o = oi.get(0);
 			request.getSession(true).setAttribute("userOrders", userOrders);
 			RequestDispatcher rd1=request.getRequestDispatcher("MyOrders.jsp");
 			rd1.forward(request, response);
