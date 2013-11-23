@@ -81,6 +81,10 @@
 														<%= session.getAttribute("error") %><%
 													}%>
 											</p>
+											<%if(session.getAttribute("user")!=null)
+												{
+												 	response.sendRedirect("HomeController");
+												}%>
 											<form action="HomeController" method="post">
 												<p><label>Username</label><input name="uname" type="text" /></p>
 												<p><label>Password</label><input name="pass" type="password" /></p>

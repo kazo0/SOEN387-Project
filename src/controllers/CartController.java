@@ -38,8 +38,12 @@ public class CartController extends HttpServlet {
 		// TODO Auto-generated method stub
 		String opt = request.getParameter("option");
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
-		if (cart == null) 
-			cart = new Cart();
+		User user = (User) request.getSession().getAttribute("user");
+		
+		if (cart == null)
+		{
+			cart = new Cart(user.getId());
+		}
 		
 		if (opt.equals("add")) {
 			int gameID = Integer.parseInt(request.getParameter("gameID"));

@@ -3,12 +3,19 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cart {
+public class Cart extends DomainObject {
 	private List<OrderItem> games;
 	
-	public Cart()
+	public Cart(int userID)
 	{
+		super(userID);
 		games = new ArrayList<OrderItem>();
+	}
+	
+	public Cart(int userID, ArrayList<OrderItem> items)
+	{
+		super(userID);
+		this.games = items;
 	}
 	
 	public int getItemCount()

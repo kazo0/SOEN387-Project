@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Cart;
 import models.Game;
 import models.User;
+import patterns.CartMapper;
 import patterns.GameMapper;
 import patterns.LoginGateway;
 import database.DBAccess;
@@ -75,6 +77,10 @@ public class HomeController extends HttpServlet {
 					}
 					request.getSession(true).setAttribute("isAdmin", isAdmin);
 					request.getSession(true).setAttribute("user", user);
+					
+					Cart cart = CartMapper.getInstance().get(user.getId());
+					request.getSession(true).setAttribute("cart", cart);
+					
 					request.getSession(true).setAttribute("games",GameMapper.getInstance().find(null));
 				}
 				else

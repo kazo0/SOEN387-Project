@@ -263,7 +263,7 @@ public class OrderMapper {
 		Order o = (Order) obj;
 		for (OrderItem oi : o.getOrderedGames())
 		{
-			String query = "UPDATE OrderItems SET orderID='" + o.getID() + "',gameID='" + oi.getGameID() + "',quantity='" + oi.getPrice() + "', quantity='" + oi.getQuantity() + "',name='" + oi.getName() + "' WHERE orderID='" + o.getID() + "' AND gameID='" + oi.getGameID() + "'";
+			String query = "UPDATE OrderItems SET orderID='" + o.getID() + "',gameID='" + oi.getGameID() + "',quantity='" + oi.getQuantity() + "', price='" + oi.getPrice() + "',name='" + oi.getName() + "' WHERE orderID='" + o.getID() + "' AND gameID='" + oi.getGameID() + "'";
 			DBAccess.getInstance().Execute(query);
 		}
 	}
