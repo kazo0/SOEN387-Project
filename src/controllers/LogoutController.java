@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.DBAccess;
 import patterns.CartMapper;
 import patterns.GameMapper;
 import patterns.OrderMapper;
@@ -39,6 +40,7 @@ public class LogoutController extends HttpServlet {
 		OrderMapper.getInstance().clear();
 		GameMapper.getInstance().clear();
 		UOW.getCurrent().clear();
+		DBAccess.getInstance().dispose();
 		
 		request.getSession().invalidate();
 
