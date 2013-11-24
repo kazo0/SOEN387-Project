@@ -16,6 +16,14 @@ public class OrderItem {
 		this.name = name;
 	}
 	
+	public OrderItem(OrderItem oi) {
+		super();
+		this.gameID = oi.getGameID();
+		this.quantity = oi.getQuantity();
+		this.price = oi.getPrice();
+		this.name = oi.getName();
+	}
+
 	public int getGameID() {
 		return gameID;
 	}

@@ -100,6 +100,12 @@
 											<div id="breadcrumb"><a href="HomeController">Home</a>  &gt;  <a href="Cart.jsp">Shopping Cart</a></div>
 											<br />
 											<h3>Shopping Cart</h3>
+											<p style="color:red;">
+												<% if (session.getAttribute("error") != null)
+													{%>
+														<%= session.getAttribute("error") %><%
+													}%>
+											</p>
 											<div class="box_large">
 													<div class="box_large_b">
 														<div class="box_large_t">
@@ -107,14 +113,14 @@
 															<div class="headings">
 																<ul>
 																	<li class="priview">Cart Items</li>
-																	<li class="quantity">Qty</li>
+																	<li class="quantity">Quantity</li>
 																	<li class="priceHead">Price</li>
 																	<li class="total">Total</li>
 																	<li class="remove">Remove</li>
 																</ul>
 																<div class="clr"></div>
 															</div>
-														
+															
 															<form action="CartController" method="post" >
 															<%
 															Cart cart = (Cart) request.getSession().getAttribute("cart");

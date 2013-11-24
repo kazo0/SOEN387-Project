@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import models.Cart;
 import models.Game;
 import models.Order;
+import models.OrderItem;
 import models.User;
 import patterns.CartMapper;
 import patterns.GameMapper;
@@ -103,15 +106,31 @@ public class CartController extends HttpServlet {
 		}
 		 else if (request.getParameter("checkout") != null) {
 			 
-			 Order order = new Order(-1, cart.getOrderItems(), "Processing", user);
-			 OrderMapper.getInstance().insert(order);
+			 List<OrderItem> validCart = new ArrayList<OrderItem>();
 			 
-			 CartMapper.getInstance().delete(cart.getID());
+			 validCart = CartMapper.getInstance().checkQuantities(cart);
 			 
-			 request.getSession().setAttribute("cart", null);
-			 //RequestDispatcher rd1=request.getRequestDispatcher("HomeController");
-				//rd1.forward(request, response);
-			 response.sendRedirect("HomeController");
+			 if (!validCart.isEmpty())
+			 {
+				 Order order = new Order(-1, validCart, "Processing", user);
+				 OrderMapper.getInstance().insert(order);
+				
+			 }
+			 
+			 request.getSession().setAttribute("cart", cart);
+			 
+			 
+			 if (cart.isEmpty())
+			 { 
+				 response.sendRedirect("HomeController");
+			 }
+			 else
+			 {
+				 request.getSession().setAttribute("error", "We do not have enough stock to order some of your items!");
+				 RequestDispatcher rd1 = request.getRequestDispatcher("Cart.jsp");
+				 rd1.forward(request, response);
+			 }
+
 		 }
 
 	}

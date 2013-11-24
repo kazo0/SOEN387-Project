@@ -54,7 +54,7 @@ public class OrderMapper {
 				
 				if (id != prevID)
 				{
-					if (prevID != -1)
+					if (prevID != -1 && !oi.isEmpty())
 					{
 						o = new Order(prevID, new ArrayList<OrderItem>(oi), prevStatus, LoginGateway.getInstance().getUser(prevUserID));
 						list.add(o);
@@ -161,7 +161,7 @@ public class OrderMapper {
 				
 				if (id != prevID)
 				{
-					if (prevID != -1)
+					if (prevID != -1 && !oi.isEmpty())
 					{
 						o = new Order(prevID, new ArrayList<OrderItem>(oi), prevStatus, LoginGateway.getInstance().getUser(uid));
 						list.add(o);

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -134,6 +135,32 @@ public class CartMapper {
 		
 	
 		
+	}
+	
+	public List<OrderItem> checkQuantities(DomainObject obj)
+	{
+		Cart c = (Cart)obj;
+		List<OrderItem> validCart = new ArrayList<OrderItem>();
+		
+		Iterator<OrderItem> it = c.getOrderItems().iterator();
+		while(it.hasNext())
+		{
+			OrderItem oi = it.next();
+			if (oi.getQuantity() < GameMapper.getInstance().get(oi.getGameID()).getQty())
+			 {
+				 validCart.add(new OrderItem(oi));
+				 soleInstance.deleteCartItem(c.getID(), oi.getGameID());
+				 it.remove();
+				 
+			 }
+		}
+		if (c.isEmpty())
+		{
+			soleInstance.delete(c.getID());
+			c = null;
+		}
+		return validCart;
+		 
 	}
 	
 	public void clear()

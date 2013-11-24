@@ -107,8 +107,8 @@
 																	<div class="headings">
 																		<ul>
 																			<li class="priview">Order Items</li>
+																			<li class="quantity">Quantity</li>
 																			<li class="priceHead">Price</li>
-																			<li class="quantity">Qty</li>
 																			<li class="status">Total</li>
 																			<li class="remove">Remove</li>		
 																		</ul>
@@ -121,7 +121,7 @@
 																	
 																	<div class="proList">
 																		<ul>
-																			<li class="priview"><%= oi.getName() %></li>
+																			<li class="priview"><%= oi.getName() %></li>	
 																			<li class="quantity"><%= oi.getQuantity() %></li>
 																			<li class="priceHead"><%= oi.getPrice()%></li>
 																			<li class="total">$<%= oi.getPrice() *  oi.getQuantity()%></li>
