@@ -37,7 +37,7 @@ public class OrderController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User)request.getSession(true).getAttribute("user");
+		User user = (User)request.getSession().getAttribute("user");
 		String opt = request.getParameter("option");
 		
 		//Was Manage Orders clicked or was My Orders clicked?
@@ -47,7 +47,7 @@ public class OrderController extends HttpServlet {
 			{
 				//View All Orders
 				Order[] allOrders = OrderMapper.getInstance().getAll();
-				request.getSession(true).setAttribute("allOrders", allOrders);
+				request.getSession().setAttribute("allOrders", allOrders);
 				RequestDispatcher rd1=request.getRequestDispatcher("ManageOrders.jsp");
 				rd1.forward(request, response);
 			
@@ -61,7 +61,7 @@ public class OrderController extends HttpServlet {
 		{
 			//View Orders by ID
 			Order[] userOrders = (Order[])OrderMapper.getInstance().findByUserId(user.getId());
-			request.getSession(true).setAttribute("userOrders", userOrders);
+			request.getSession().setAttribute("userOrders", userOrders);
 			RequestDispatcher rd1=request.getRequestDispatcher("MyOrders.jsp");
 			rd1.forward(request, response);
 		}
@@ -78,7 +78,7 @@ public class OrderController extends HttpServlet {
 			
 			
 			Order[] allOrders = OrderMapper.getInstance().getAll();
-			request.getSession(true).setAttribute("allOrders", allOrders);
+			request.getSession().setAttribute("allOrders", allOrders);
 			RequestDispatcher rd1=request.getRequestDispatcher("ManageOrders.jsp");
 			rd1.forward(request, response);
 		}

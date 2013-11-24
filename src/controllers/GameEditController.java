@@ -35,7 +35,7 @@ public class GameEditController extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Game gm =GameMapper.getInstance().get(id);
 		
-		request.getSession(true).setAttribute("game", gm);
+		request.getSession().setAttribute("game", gm);
 		RequestDispatcher rd1=request.getRequestDispatcher("EditGame.jsp");
 		rd1.forward(request, response);
 

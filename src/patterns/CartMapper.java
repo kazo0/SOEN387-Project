@@ -80,7 +80,6 @@ public class CartMapper {
 					
 			}
 		}
-		
 		return c;
 	}
 	
@@ -109,7 +108,7 @@ public class CartMapper {
 		Cart c = (Cart) obj;
 		for (OrderItem oi : c.getOrderItems())
 		{
-			String query = "UPDATE Carts SET cartID='" + c.getID() + "',gameID='" + oi.getGameID() + "',quantity='" + oi.getQuantity() + "', price='" + oi.getPrice() + "',name='" + oi.getName() + "' WHERE userID='" + c.getID() + "' AND gameID='" + oi.getGameID() + "'";
+			String query = "UPDATE Carts SET userID='" + c.getID() + "',gameID='" + oi.getGameID() + "',quantity='" + oi.getQuantity() + "', price='" + oi.getPrice() + "',name='" + oi.getName() + "' WHERE userID='" + c.getID() + "' AND gameID='" + oi.getGameID() + "'";
 			DBAccess.getInstance().Execute(query);
 		}
 	}
@@ -119,20 +118,27 @@ public class CartMapper {
 		soleInstance.cart.remove(key);
 	}
 	
-	public void deleteCartItem(int userID, int gid, int oiIndex)
+	public void deleteCartItem(int userID, int gid)
 	{
 		String query = "DELETE FROM Carts WHERE userID='" + userID + "' AND gameID='" + gid + "'";
 		DBAccess.getInstance().Execute(query);
 		
-		Cart c = soleInstance.get(userID);
-		c.getOrderItems().remove(oiIndex);
+	}
+	public void insertCartItem(DomainObject obj, int oiIndex)
+	{
+		Cart c = (Cart) obj;
+		OrderItem oi = c.getOrderItems().get(oiIndex);
+		String values = "'" + c.getID() + "','" + oi.getGameID() + "','" + oi.getQuantity() + "','" + oi.getPrice() + "','" + oi.getName() + "'";
+		String query = "INSERT INTO Carts (userID, gameID, quantity, price, name) VALUES (" + values + ")";
+		DBAccess.getInstance().Execute(query);
 		
+	
 		
-		if (c.getOrderItems().size() == 0)
-		{
-			soleInstance.delete(userID);
-		}
-		
+	}
+	
+	public void clear()
+	{
+		soleInstance = null;
 	}
 	
 }

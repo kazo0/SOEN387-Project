@@ -33,7 +33,7 @@
 				<div id="logo"><a href="HomeController"><img src="images/logo.gif" alt="" /></a></div>
 				<div id="topmenu">
 					<ul>
-						<li><a href="#">LOGOUT</a></li>
+						<li><a href="LogoutController">LOGOUT</a></li>
 					</ul>
 				</div>
 				<div id="topsearch">

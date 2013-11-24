@@ -57,7 +57,7 @@ public class HomeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Init Connection
 		DBAccess.getInstance();
-		
+		Cart c = (Cart)request.getSession().getAttribute("cart");
 		RequestDispatcher rd1 = request.getRequestDispatcher("Home.jsp");
 		if (request.getParameter("login") != null) {
 			String username = request.getParameter("uname");
@@ -79,6 +79,7 @@ public class HomeController extends HttpServlet {
 					request.getSession(true).setAttribute("user", user);
 					
 					Cart cart = CartMapper.getInstance().get(user.getId());
+					
 					request.getSession(true).setAttribute("cart", cart);
 					
 					request.getSession(true).setAttribute("games",GameMapper.getInstance().find(null));

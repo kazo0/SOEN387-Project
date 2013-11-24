@@ -13,6 +13,7 @@ import models.Cart;
 import models.Game;
 import models.Order;
 import models.User;
+import patterns.CartMapper;
 import patterns.GameMapper;
 import patterns.OrderMapper;
 
@@ -51,15 +52,23 @@ public class CartController extends HttpServlet {
 			String name = request.getParameter("name");
 
 			cart.addItem(gameID, price, name);
-			request.getSession(true).setAttribute("cart", cart);
+	
+			
+			request.getSession().setAttribute("cart", cart);
 			RequestDispatcher rd1=request.getRequestDispatcher("Home.jsp");
 			rd1.forward(request, response);
 			
 		}
 		if (opt.equals("delete")) {
 			int index = Integer.parseInt(request.getParameter("index"));
+			
 			cart.deleteItem(index);
-			request.getSession(true).setAttribute("cart", cart);
+			if (cart.isEmpty())
+			{
+				cart = null;
+			}
+			request.getSession().setAttribute("cart", cart);
+			
 			RequestDispatcher rd1=request.getRequestDispatcher("Cart.jsp");
 			rd1.forward(request, response);
 		}
@@ -83,7 +92,11 @@ public class CartController extends HttpServlet {
 					int qty = Integer.parseInt(items[i]);
 					cart.updateItem(i, qty);
 				}
-				request.getSession(true).setAttribute("cart", cart);
+				if (cart.isEmpty())
+				{
+					cart = null;
+				}
+				request.getSession().setAttribute("cart", cart);
 			}
 			RequestDispatcher rd1=request.getRequestDispatcher("Cart.jsp");
 			rd1.forward(request, response);
@@ -92,7 +105,10 @@ public class CartController extends HttpServlet {
 			 
 			 Order order = new Order(-1, cart.getOrderItems(), "Processing", user);
 			 OrderMapper.getInstance().insert(order);
-			 request.getSession(true).setAttribute("cart", null);
+			 
+			 CartMapper.getInstance().delete(cart.getID());
+			 
+			 request.getSession().setAttribute("cart", null);
 			 //RequestDispatcher rd1=request.getRequestDispatcher("HomeController");
 				//rd1.forward(request, response);
 			 response.sendRedirect("HomeController");

@@ -33,7 +33,7 @@ public class DetailsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int id = Integer.parseInt(request.getParameter("gameID"));
-		request.getSession(true).setAttribute("gameID", id);
+		request.getSession().setAttribute("gameID", id);
 		RequestDispatcher rd1=request.getRequestDispatcher("details.jsp");
 		rd1.forward(request, response);
 	}

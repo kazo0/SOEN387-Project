@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import patterns.CartMapper;
+import patterns.GameMapper;
+import patterns.OrderMapper;
+import patterns.UOW;
 import models.Cart;
 
 /**
@@ -31,15 +34,14 @@ public class LogoutController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cart c = (Cart) request.getSession().getAttribute("cart");
+
+		CartMapper.getInstance().clear();
+		OrderMapper.getInstance().clear();
+		GameMapper.getInstance().clear();
+		UOW.getCurrent().clear();
 		
-		if (c != null)
-		{
-			CartMapper.getInstance().insert(c);
-		}
 		request.getSession().invalidate();
-		
-		
+
 		RequestDispatcher rd1=request.getRequestDispatcher("index.jsp");
 		rd1.forward(request, response);
 	}

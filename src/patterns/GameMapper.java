@@ -186,6 +186,11 @@ public class GameMapper {
 		
 	}
 	
+	public void clear()
+	{
+		soleInstance = null;
+	}
+	
 }
 
 

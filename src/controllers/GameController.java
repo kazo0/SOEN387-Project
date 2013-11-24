@@ -41,7 +41,7 @@ public class GameController extends HttpServlet {
 			gm.markRemoved();
 		}
 		
-		request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
+		request.getSession().setAttribute("items", GameMapper.getInstance().getAll());
 		RequestDispatcher rd1=request.getRequestDispatcher("Inventory.jsp");
 		rd1.forward(request, response);
 	
@@ -97,7 +97,7 @@ public class GameController extends HttpServlet {
 			Game gm = new Game(-1, name, desc, price, qty, cat[0], image);
 			gm.markNew();
 			
-			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
+			request.getSession().setAttribute("items", GameMapper.getInstance().getAll());
 			RequestDispatcher rd1=request.getRequestDispatcher("Inventory.jsp");
 			rd1.forward(request, response);
 			
@@ -105,7 +105,7 @@ public class GameController extends HttpServlet {
 		else if (opt.equals("commit")){
 			UOW.getCurrent().commit();
 			
-			request.getSession(true).setAttribute("items", GameMapper.getInstance().getAll());
+			request.getSession().setAttribute("items", GameMapper.getInstance().getAll());
 			RequestDispatcher rd1=request.getRequestDispatcher("Inventory.jsp");
 			rd1.forward(request, response);
 			

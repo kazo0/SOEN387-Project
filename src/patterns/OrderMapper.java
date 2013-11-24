@@ -300,6 +300,11 @@ public class OrderMapper {
 		
 	}
 	
+	public void clear()
+	{
+		soleInstance = null;
+	}
+	
 }
 
 

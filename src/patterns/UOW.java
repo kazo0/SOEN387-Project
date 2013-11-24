@@ -97,5 +97,10 @@ public class UOW {
 	public List<DomainObject> getAllNew() {
 		return this.newObjects;
 	}
+	
+	public void clear()
+	{
+		current = null;
+	}
 
 }
