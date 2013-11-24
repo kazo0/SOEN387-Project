@@ -101,11 +101,12 @@
 											<br />
 											<h3>Shopping Cart</h3>
 											<p style="color:red;">
-												<% if (session.getAttribute("error") != null)
+												<% if (session.getAttribute("CartError") != null)
 													{%>
-														<%= session.getAttribute("error") %><%
+														<%= session.getAttribute("CartError") %><%
 													}%>
 											</p>
+											<% session.setAttribute("CartError", null); %>
 											<div class="box_large">
 													<div class="box_large_b">
 														<div class="box_large_t">

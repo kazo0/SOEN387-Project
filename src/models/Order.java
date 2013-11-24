@@ -58,12 +58,17 @@ public class Order extends DomainObject {
 	
 	public boolean updateItemQty(int index, int qty)
 	{
-		if (OrderMapper.getInstance().checkQuantities(qty, this, orderedItems.get(index).getGameID()))
+		int diff = 0;
+		if (OrderMapper.getInstance().checkQuantities(qty, orderedItems.get(index), orderedItems.get(index).getGameID()))
 		{
 			return true;
 		}
+		else
+		{
+			diff = qty - orderedItems.get(index).getQuantity();
+		}
 		orderedItems.get(index).setQuantity(qty);
-		OrderMapper.getInstance().update(this);
+		OrderMapper.getInstance().updateOrderItem(this, index, diff);
 		return false;
 	}
 	

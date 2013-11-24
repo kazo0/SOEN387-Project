@@ -118,16 +118,16 @@ public class CartController extends HttpServlet {
 				
 			 }
 			 
-			 request.getSession().setAttribute("cart", cart);
-			 
 			 
 			 if (cart.isEmpty())
 			 { 
+				 request.getSession().setAttribute("cart", null);
 				 response.sendRedirect("HomeController");
 			 }
 			 else
 			 {
-				 request.getSession().setAttribute("error", "We do not have enough stock to order some of your items!");
+				 request.getSession().setAttribute("cart", cart);
+				 request.getSession().setAttribute("CartError", "We do not have enough stock to order some of your items!");
 				 RequestDispatcher rd1 = request.getRequestDispatcher("Cart.jsp");
 				 rd1.forward(request, response);
 			 }

@@ -114,7 +114,15 @@
 											<p class="category_small"><%= thisGame.getCategory()%></p>
 											<p><img width="141" height="129" src="<%= thisGame.getImage()==null? "images/notfound.jpg" :  Items[id].getImage()%>" alt="" class="imgleft" /></p>
 											<p class="price_small">$<%= thisGame.getPrice() %></p>
-											<p><a href="CartController?option=add&gameID=<%= thisGame.getID() %>&price=<%= thisGame.getPrice() %>&name=<%= thisGame.getName() %>"><img src="images/but_addtocart.png" alt="" /></a></p>
+											
+											<% if (thisGame.getQty() > 0) 
+											{%>
+												<p><a href="CartController?option=add&gameID=<%= thisGame.getID() %>&price=<%= thisGame.getPrice() %>&name=<%= thisGame.getName() %>"><img src="images/but_addtocart.png" alt="" /></a></p>
+											<%}
+											else
+											{%>
+												<p><img src="images/out_of_stock.jpg" alt="" /></p>
+											<%} %>
 											<p> Items left in stock: <%= thisGame.getQty() %></p>
 											<p> <%= thisGame.getDescription() %></p>
 										</div>

@@ -96,9 +96,11 @@
 											<p style="color:red;">
 												<% if (session.getAttribute("ManageError") != null)
 													{%>
-														<%= session.getAttribute("ManageError") %><%
+														<%= session.getAttribute("ManageError")%>
+														<%
 													}%>
 											</p>
+											<% session.setAttribute("ManageError", null); %>
 											<% Order[] orders = (Order[])request.getSession().getAttribute("allOrders");
 											
 											for (int i = 0; i < orders.length; i++) 
@@ -119,16 +121,25 @@
 																		</ul>
 																		<div class="clr"></div>
 																	</div>
-																	
+																	<% String status = (String)orders[i].getOrderStatus(); %>
 																	<%
 																	for(OrderItem oi : orders[i].getOrderedGames())
 																	{ %>
 																	
 																	<div class="proList">
 																		<ul>
-																			<li class="priview"><%= oi.getName() %></li>	
-																			<li class="quantity"><input name="Quantity[]" type="text" value="<%= oi.getQuantity() %>" size="1" /></li>
-																			<li class="priceHead"><input name="Price[]" type="text" value="<%= oi.getPrice() %>" size="1" /></li>
+																			<li class="priview"><%= oi.getName() %></li>
+																			<% if (status.equals("Processing"))
+																				{%>	
+																					<li class="quantity"><input name="Quantity[]" type="text" value="<%= oi.getQuantity() %>" size="1" /></li>
+																					<li class="priceHead"><input name="Price[]" type="text" value="<%= oi.getPrice() %>" size="1" /></li>
+																			<% }
+																			else
+																				{%>
+																				<li class="quantity"><%= oi.getQuantity() %></li>
+																				<li class="priceHead"><%= oi.getPrice() %></li>
+																				<%} %>
+																				
 																			<li class="total">$<%= oi.getPrice() *  oi.getQuantity()%></li>
 																			
 																			<%if (orders[i].getOrderStatus().equals("Processing") == true) 
@@ -141,8 +152,8 @@
 																	<br />
 																	<% } %>
 																	<p><label>Total : </label><%= orders[i].getTotal() %></p>
-																	<% String status = (String)orders[i].getOrderStatus();
-																	String color = "green";
+																	
+																	<% String color = "green";
 																	if (status.equals("Shipped"))
 																	{
 																		color = "navy";

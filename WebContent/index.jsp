@@ -52,9 +52,7 @@
 			
 			<div id="menu">
 				<div id="mainmenu">
-					<ul>
-						<li><a href="HomeController">Home</a></li>
-					</ul>
+					
 				</div>
 				
 			</div>
@@ -81,6 +79,7 @@
 														<%= session.getAttribute("error") %><%
 													}%>
 											</p>
+											<% session.setAttribute("error", null); %>
 											<%if(session.getAttribute("user")!=null)
 												{
 												 	response.sendRedirect("HomeController");

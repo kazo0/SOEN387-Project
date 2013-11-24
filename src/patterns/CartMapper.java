@@ -146,7 +146,7 @@ public class CartMapper {
 		while(it.hasNext())
 		{
 			OrderItem oi = it.next();
-			if (oi.getQuantity() < GameMapper.getInstance().get(oi.getGameID()).getQty())
+			if (oi.getQuantity() <= GameMapper.getInstance().get(oi.getGameID()).getQty())
 			 {
 				 validCart.add(new OrderItem(oi));
 				 soleInstance.deleteCartItem(c.getID(), oi.getGameID());
@@ -157,7 +157,6 @@ public class CartMapper {
 		if (c.isEmpty())
 		{
 			soleInstance.delete(c.getID());
-			c = null;
 		}
 		return validCart;
 		 

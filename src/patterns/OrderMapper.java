@@ -265,7 +265,22 @@ public class OrderMapper {
 		{
 			String query = "UPDATE OrderItems SET orderID='" + o.getID() + "',gameID='" + oi.getGameID() + "',quantity='" + oi.getQuantity() + "', price='" + oi.getPrice() + "',name='" + oi.getName() + "' WHERE orderID='" + o.getID() + "' AND gameID='" + oi.getGameID() + "'";
 			DBAccess.getInstance().Execute(query);
+			
+	
 		}
+	}
+	
+	public void updateOrderItem(DomainObject obj, int itemIndex, int diff)
+	{
+		Order o = (Order) obj;
+		OrderItem oi = o.getOrderedGames().get(itemIndex);
+		
+		String query = "UPDATE OrderItems SET orderID='" + o.getID() + "',gameID='" + oi.getGameID() + "',quantity='" + oi.getQuantity() + "', price='" + oi.getPrice() + "',name='" + oi.getName() + "' WHERE orderID='" + o.getID() + "' AND gameID='" + oi.getGameID() + "'";
+		DBAccess.getInstance().Execute(query);
+			
+		Game gm = GameMapper.getInstance().get(oi.getGameID());
+		gm.setQty(gm.getQty() - diff);
+		GameMapper.getInstance().update(gm);
 	}
 	public void delete(int key) {
 		String query = "DELETE FROM Orders WHERE id=" + key;
@@ -288,10 +303,11 @@ public class OrderMapper {
 	
 	public boolean checkQuantities(int newQty, DomainObject obj, int itemID)
 	{
-		Order o = (Order)obj;
+		OrderItem oi = (OrderItem)obj;
 		Game g = GameMapper.getInstance().get(itemID);
+		int oldQty = oi.getQuantity();
 		
-		return (newQty > g.getQty());
+		return ((newQty - oldQty) > g.getQty());
 	}
 
 	public void CleanAll() {
