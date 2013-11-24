@@ -93,7 +93,12 @@
 											<div id="breadcrumb"><a href="HomeController">Home</a>  &gt;  <a href="InventoryController">Inventory</a></div>
 											<br />
 											<h3>Orders</h3>
-											
+											<p style="color:red;">
+												<% if (session.getAttribute("ManageError") != null)
+													{%>
+														<%= session.getAttribute("ManageError") %><%
+													}%>
+											</p>
 											<% Order[] orders = (Order[])request.getSession().getAttribute("allOrders");
 											
 											for (int i = 0; i < orders.length; i++) 
@@ -122,9 +127,10 @@
 																	<div class="proList">
 																		<ul>
 																			<li class="priview"><%= oi.getName() %></li>	
-																			<li class="quantity"><%= oi.getQuantity() %></li>
-																			<li class="priceHead"><%= oi.getPrice()%></li>
+																			<li class="quantity"><input name="Quantity[]" type="text" value="<%= oi.getQuantity() %>" size="1" /></li>
+																			<li class="priceHead"><input name="Price[]" type="text" value="<%= oi.getPrice() %>" size="1" /></li>
 																			<li class="total">$<%= oi.getPrice() *  oi.getQuantity()%></li>
+																			
 																			<%if (orders[i].getOrderStatus().equals("Processing") == true) 
 																			{%>		
 																			<li class="remove"><a href="OrderController?option=deleteItem&orderID=<%= orders[i].getID()%>&itemIndex=<%=orders[i].getOrderedGames().indexOf(oi)%>"><img src="images/delete.png" alt="" class="but" /></a>&nbsp;<a href="OrderController?option=deleteItem&orderID=<%= orders[i].getID()%>&itemIndex=<%=orders[i].getOrderedGames().indexOf(oi)%>">Remove</a></li>
@@ -152,6 +158,7 @@
 																	<%if (status.equals("Processing"))
 																	{%>
 																		<input type="hidden" name="orderID" value = "<%= orders[i].getID() %>"/>
+																		<input type="submit" name="update" value ="Update Order" />
 																		<input type="submit" name="cancel" value ="Cancel Order" />
 																	<%} %>
 																	

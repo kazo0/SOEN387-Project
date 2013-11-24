@@ -272,25 +272,26 @@ public class OrderMapper {
 		DBAccess.getInstance().Execute(query);
 		soleInstance.order.remove(key);
 	}
-	public void deleteOrderItem(int oid, int gid, int oiIndex)
+	public void deleteOrderItem(int oid, DomainObject obj)
 	{
-		String query = "DELETE FROM OrderItems WHERE orderID='" + oid + "' AND gameID='" + gid + "'";
+		OrderItem oi = (OrderItem) obj;
+		String query = "DELETE FROM OrderItems WHERE orderID='" + oid + "' AND gameID='" + oi.getGameID() + "'";
 		DBAccess.getInstance().Execute(query);
 		//soleInstance.order.remove(oid);
 		
 		Order o = soleInstance.get(oid);
-		OrderItem oi = o.getOrderedGames().get(oiIndex);
 		
-		Game gm = GameMapper.getInstance().get(gid);
+		Game gm = GameMapper.getInstance().get(oi.getGameID());
 		gm.setQty(gm.getQty() + oi.getQuantity());
-		GameMapper.getInstance().update(gm);
+		GameMapper.getInstance().update(gm);		
+	}
+	
+	public boolean checkQuantities(int newQty, DomainObject obj, int itemID)
+	{
+		Order o = (Order)obj;
+		Game g = GameMapper.getInstance().get(itemID);
 		
-		o.getOrderedGames().remove(oiIndex);
-		if (o.getOrderedGames().size() == 0)
-		{
-			soleInstance.delete(oid);
-		}
-		
+		return (newQty > g.getQty());
 	}
 
 	public void CleanAll() {

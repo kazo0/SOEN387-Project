@@ -1,6 +1,6 @@
 package models;
 
-public class OrderItem {
+public class OrderItem extends DomainObject {
 	
 	private int gameID;
 	private int quantity;

@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import patterns.CartMapper;
@@ -41,11 +42,6 @@ public class Cart extends DomainObject {
 	{
 		
 		// Manage Lock Item in DB
-		if (quantity == 0)
-		{
-			deleteItem(index);
-			return;
-		}
 		games.get(index).setQuantity(quantity);
 		CartMapper.getInstance().update(this);
 	}
@@ -77,6 +73,23 @@ public class Cart extends DomainObject {
 		
 	}
 	
+	public void cleanup()
+	{
+		Iterator<OrderItem> it = games.iterator();
+		while(it.hasNext())
+		{
+			OrderItem oi = it.next();
+			if (oi.getQuantity() == 0)
+			{
+				CartMapper.getInstance().deleteCartItem(this.getID(), oi.getGameID());
+				it.remove();
+			}
+		}
+		if (this.isEmpty())
+		{
+			CartMapper.getInstance().delete(this.getID());
+		}
+	}
 	public double getTotal()
 	{
 		double total = 0;

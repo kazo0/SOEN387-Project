@@ -95,6 +95,7 @@ public class CartController extends HttpServlet {
 					int qty = Integer.parseInt(items[i]);
 					cart.updateItem(i, qty);
 				}
+				cart.cleanup();
 				if (cart.isEmpty())
 				{
 					cart = null;
