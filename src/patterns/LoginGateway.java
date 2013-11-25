@@ -48,7 +48,6 @@ public class LoginGateway
 				String province = rs.getString("province");
 				String line1 = rs.getString("line1");
 				String line2 = rs.getString("line2");
-				
 				return new User(id, firstName,lastName,username,password,isAdmin, phone, city, country, province, line1, line2);
 			}
 			catch (Exception ex) 
@@ -87,6 +86,11 @@ public class LoginGateway
 			return null;
 		}			
 		
+	}
+	
+	public void dispose()
+	{
+		soleInstance = null;
 	}
 	
 }

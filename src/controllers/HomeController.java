@@ -57,7 +57,7 @@ public class HomeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Init Connection
 		DBAccess.getInstance();
-		Cart c = (Cart)request.getSession().getAttribute("cart");
+		
 		RequestDispatcher rd1 = request.getRequestDispatcher("Home.jsp");
 		if (request.getParameter("login") != null) {
 			String username = request.getParameter("uname");

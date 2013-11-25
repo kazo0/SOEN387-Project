@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import database.DBAccess;
 import patterns.CartMapper;
 import patterns.GameMapper;
+import patterns.LoginGateway;
 import patterns.OrderMapper;
 import patterns.UOW;
 import models.Cart;
@@ -41,6 +42,7 @@ public class LogoutController extends HttpServlet {
 		GameMapper.getInstance().clear();
 		UOW.getCurrent().clear();
 		DBAccess.getInstance().dispose();
+		LoginGateway.getInstance().dispose();
 		
 		request.getSession().invalidate();
 

@@ -40,10 +40,11 @@ public class DBAccess {
 		try {
 			Statement st = connection.createStatement();
 			result = st.executeQuery(query);
+			//JdbcUtilViaSSH.close(null, st, null);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return result;
 		
 	}
@@ -52,6 +53,7 @@ public class DBAccess {
 		try {
 			Statement st = connection.createStatement();
 			st.execute(query);
+			//JdbcUtilViaSSH.close(null, st, null);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,6 +70,7 @@ public class DBAccess {
 			result = st.getGeneratedKeys();
 			result.next();
 			id =  result.getInt(1);
+			//JdbcUtilViaSSH.close(null, st, null);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
