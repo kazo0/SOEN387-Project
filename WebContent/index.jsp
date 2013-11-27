@@ -113,7 +113,6 @@
 	<div id="bottom_container">
 		<div id="footer">
 			<div id="footleft">
-				Copyright &copy;2013. All rights reserved
 			</div>
 		</div>
 	</div>
