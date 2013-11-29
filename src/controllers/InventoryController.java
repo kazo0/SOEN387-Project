@@ -28,6 +28,7 @@ public class InventoryController extends HttpServlet {
     public InventoryController() {
         super();
         // TODO Auto-generated constructor stub
+        
     }
 
 	/**

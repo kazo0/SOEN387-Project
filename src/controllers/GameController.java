@@ -27,6 +27,7 @@ public class GameController extends HttpServlet {
     public GameController() {
         super();
         // TODO Auto-generated constructor stub
+        
     }
 
 	/**

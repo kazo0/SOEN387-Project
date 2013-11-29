@@ -25,6 +25,7 @@ public class DetailsController extends HttpServlet {
     public DetailsController() {
         super();
         // TODO Auto-generated constructor stub
+        
     }
 
 	/**

@@ -30,6 +30,7 @@ public class GameMapper {
 		
 	public void addGameToMap(Game arg) {
 		soleInstance.game.put(arg.getID(), arg);
+		
 	}
 	
 	public Game[] getAll() {

@@ -28,6 +28,7 @@ public class UOW {
 		{
 			current = new UOW();
 		}
+		
 		return current;
 	}
 	
